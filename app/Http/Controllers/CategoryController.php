@@ -16,9 +16,16 @@ class CategoryController extends Controller
     {
         try {
             $categories = Category::all();
-            return response()->json(['categories' => $categories]);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Categories retrieved successfully',
+                'data' => $categories
+            ]);
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
         }
     }
 
@@ -33,8 +40,15 @@ class CategoryController extends Controller
                 'description' => 'nullable|string',
                 'image' => 'nullable|string',
             ]);
+
             $category = Category::create($request->all());
-            return response()->json(['category' => $category]);
+            
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Category created successfully',
+                'data' => $category
+            ], 201);
+
         } catch (ValidationException $e) {
             return response()->json(['error' => $e->errors()], 422);
         } catch (Exception $e) {
@@ -48,9 +62,16 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         try {
-            return response()->json(['category' => $category]);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Category retrieved    successfully',
+                'data' => $category
+            ]);
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
         }
     }
 
@@ -59,7 +80,32 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        try {
+            $request->validate([
+                'name' => 'sometimes|required|string|max:255|unique:categories,name,' . $category->id,
+                'description' => 'nullable|string',
+                'image' => 'nullable|string|max:255'
+            ]);
+
+            $category->update($request->all());
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Category updated successfully',
+                'data' => $category
+            ]);
+
+        } catch (ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->errors()
+            ], 422);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
