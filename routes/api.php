@@ -21,6 +21,8 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
 
+// les categories
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('categories', CategoryController::class);
+    Route::get('categories', [CategoryController::class, 'index']);
+    Route::post('categories', [CategoryController::class, 'store']);
 });
