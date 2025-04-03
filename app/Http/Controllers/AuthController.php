@@ -50,6 +50,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        try {
         $request->validate([
             'email' => 'required|email',
             'password' => 'required'
@@ -70,5 +71,17 @@ class AuthController extends Controller
             'user' => $user,
             'token' => $token,
         ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Erreur de validation',
+                'errors' => $e->errors(),
+            ], 422);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Erreur lors de la connexion',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
     }
-
