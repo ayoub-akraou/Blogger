@@ -30,4 +30,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('categories/{category}', [CategoryController::class, 'destroy']);
     // les tags
     Route::get('tags', [TagController::class, 'index']);
+    Route::post('tags', [TagController::class, 'store']);
 });
