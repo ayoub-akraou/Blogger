@@ -14,25 +14,25 @@ class AuthController extends Controller
     {
         try {
             $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:8|confirmed',
+            ]);
 
-        $user = User::create([
+            $user = User::create([
                 'name' => $validatedData['name'],
                 'email' => $validatedData['email'],
                 'password' => Hash::make($validatedData['password']),
-        ]);
+            ]);
 
-        $token = $user->createToken('authToken')->plainTextToken;
+            $token = $user->createToken('authToken')->plainTextToken;
 
-        return response()->json([
+            return response()->json([
                 'success' => true,
-            'message' => 'Utilisateur inscrit avec succès',
-            'user' => $user,
-            'token' => $token,
-        ], 201);
+                'message' => 'Utilisateur inscrit avec succès',
+                'user' => $user,
+                'token' => $token,
+            ], 201);
         } catch (ValidationException $e) {
             return response()->json([
                 'success' => false,
@@ -51,26 +51,26 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         try {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
+            $request->validate([
+                'email' => 'required|email',
+                'password' => 'required'
+            ]);
 
-        $user = User::where('email', $request->email)->first();
+            $user = User::where('email', $request->email)->first();
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json(['message' => 'Identifiants incorrects'], 401);
-        }
+            if (!$user || !Hash::check($request->password, $user->password)) {
+                return response()->json(['message' => 'Identifiants incorrects'], 401);
+            }
 
-        $user->tokens()->delete();
+            $user->tokens()->delete();
 
-        $token = $user->createToken('authToken')->plainTextToken;
+            $token = $user->createToken('authToken')->plainTextToken;
 
-        return response()->json([
-            'message' => 'Connexion réussie',
-            'user' => $user,
-            'token' => $token,
-        ]);
+            return response()->json([
+                'message' => 'Connexion réussie',
+                'user' => $user,
+                'token' => $token,
+            ]);
         } catch (ValidationException $e) {
             return response()->json([
                 'success' => false,
