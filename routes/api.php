@@ -21,11 +21,13 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
 
-// les categories
 Route::middleware('auth:sanctum')->group(function () {
+    // les categories
     Route::get('categories', [CategoryController::class, 'index']);
     Route::post('categories', [CategoryController::class, 'store']);
     Route::get('categories/{category}', [CategoryController::class, 'show']);
     Route::put('categories/{category}', [CategoryController::class, 'update']);
     Route::delete('categories/{category}', [CategoryController::class, 'destroy']);
+    // les tags
+    Route::get('tags', [TagController::class, 'index']);
 });
