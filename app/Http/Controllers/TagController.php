@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tag;
+use Exception;
 use Illuminate\Http\Request;
 
 class TagController extends Controller
@@ -12,7 +13,19 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $tags = Tag::all();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Tags retrieved successfully',
+                'data' => $tags
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
