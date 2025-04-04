@@ -82,7 +82,33 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        //
+        try {
+            $validated = $request->validate([
+                'blog_id' => 'sometimes|required|exists:blogs,id',
+                'user_id' => 'sometimes|required|exists:users,id',
+                'content' => 'sometimes|required|string',
+                'likes' => 'sometimes|nullable|integer',
+                'status' => 'sometimes|nullable|string|in:published,deleted',
+            ]);
+
+            $comment->update($validated);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Comment updated successfully',
+                'data' => $comment
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->errors()
+            ], 422);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
