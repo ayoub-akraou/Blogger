@@ -91,4 +91,22 @@ class UserController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * Count the number of users.
+     */
+    public function count()
+    {
+        try {
+            return response()->json([
+                'status' => 'success',
+                'data' => User::count()
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
