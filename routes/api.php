@@ -40,4 +40,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('blogs', [BlogController::class, 'index']);
     Route::post('blogs', [BlogController::class, 'store']);
     Route::get('blogs/{blog}', [BlogController::class, 'show']);
+    Route::put('blogs/{blog}', [BlogController::class, 'update']);
 });

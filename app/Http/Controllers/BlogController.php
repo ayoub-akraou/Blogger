@@ -77,7 +77,31 @@ class BlogController extends Controller
      */
     public function update(Request $request, Blog $blog)
     {
-        //
+        try {
+            $request->validate([
+                'user_id' => 'sometimes|required|exists:users,id',
+                'category_id' => 'sometimes|nullable|exists:categories,id',
+                'title' => 'sometimes|required|string|max:255',
+                'content' => 'sometimes|required|string',
+                'image' => 'sometimes|required|string|max:255',
+                'views' => 'sometimes|required|numeric|min:0',
+                'likes' => 'sometimes|required|numeric|min:0',
+                'status' => 'sometimes|required|in:pending,published,archived'
+            ]);
+
+            $blog->update($request->all());
+            return response()->json(['status' => 'success', 'message' => 'Blog updated successfully', 'data' => $blog]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->errors()
+            ], 422);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
