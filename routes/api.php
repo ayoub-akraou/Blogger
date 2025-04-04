@@ -31,4 +31,5 @@ Route::middleware('auth:sanctum')->group(function () {
     // les tags
     Route::get('tags', [TagController::class, 'index']);
     Route::post('tags', [TagController::class, 'store']);
+    Route::get('tags/{tag}', [TagController::class, 'show']);
 });
