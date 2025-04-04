@@ -35,4 +35,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('tags/{tag}', [TagController::class, 'show']);
     Route::put('tags/{tag}', [TagController::class, 'update']);
     Route::delete('tags/{tag}', [TagController::class, 'destroy']);
+    // les blogs
+    Route::get('blogs', [BlogController::class, 'index']);
 });
