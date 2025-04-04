@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TagController;
 use Illuminate\Http\Request;
@@ -37,4 +38,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('tags/{tag}', [TagController::class, 'destroy']);
     // les blogs
     Route::get('blogs', [BlogController::class, 'index']);
+    Route::post('blogs', [BlogController::class, 'store']);
 });
