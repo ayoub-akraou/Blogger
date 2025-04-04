@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use Exception;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -12,7 +13,15 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $comments = Comment::all();
+            return response()->json(['status' => 'success', 'data' => $comments]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
