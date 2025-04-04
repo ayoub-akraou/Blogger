@@ -85,8 +85,8 @@ class TagController extends Controller
     {
         try {
             $validated = $request->validate([
-                'name' => 'required|string|max:255|unique:tags',
-                'color' => 'required|string|max:255'
+                'name' => 'sometimes|required|string|max:255|unique:tags',
+                'color' => 'sometimes|required|string|max:255'
             ]);
 
             $tag->update($validated);
