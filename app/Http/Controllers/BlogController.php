@@ -62,7 +62,14 @@ class BlogController extends Controller
      */
     public function show(Blog $blog)
     {
-        //
+        try {
+            return response()->json(['status' => 'success', 'data' => $blog]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
