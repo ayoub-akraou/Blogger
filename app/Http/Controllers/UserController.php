@@ -29,7 +29,17 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        try {
+            return response()->json([
+                'status' => 'success',
+                'data' => $user
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
