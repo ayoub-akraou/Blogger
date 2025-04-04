@@ -41,7 +41,7 @@ class TagController extends Controller
             ]);
 
             $tag = Tag::create($validated);
-            
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'Tag created successfully',
@@ -65,7 +65,17 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
-        //
+        try {
+            return response()->json([
+                'status' => 'success',
+                'tag' => $tag
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
 
     /**
