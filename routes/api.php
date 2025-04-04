@@ -46,4 +46,5 @@ Route::middleware('auth:sanctum')->group(function () {
     // les commentaires
     Route::get('comments', [CommentController::class, 'index']);
     Route::post('comments', [CommentController::class, 'store']);
+    Route::get('comments/{comment}', [CommentController::class, 'show']);
 });
