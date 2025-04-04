@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class CommentController extends Controller
 {
@@ -29,7 +30,33 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $validated = $request->validate([
+                'blog_id' => 'required|exists:blogs,id',
+                'user_id' => 'required|exists:users,id',
+                'content' => 'required|string',
+                'likes' => 'nullable|integer',
+                'status' => 'nullable|string|in:published,deleted',
+            ]);
+
+            $comment = Comment::create($validated);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Comment created successfully',
+                'data' => $comment
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->errors()
+            ], 422);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
