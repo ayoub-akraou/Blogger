@@ -83,7 +83,30 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
-        //
+        try {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255|unique:tags',
+                'color' => 'required|string|max:255'
+            ]);
+
+            $tag->update($validated);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Tag updated successfully',
+                'data' => $tag
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->errors()
+            ], 422);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
