@@ -64,7 +64,17 @@ class CommentController extends Controller
      */
     public function show(Comment $comment)
     {
-        //
+        try {
+            return response()->json([
+                'status' => 'success',
+                'data' => $comment
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
