@@ -109,6 +109,14 @@ class BlogController extends Controller
      */
     public function destroy(Blog $blog)
     {
-        //
+        try {
+            $blog->delete();
+            return response()->json(null, 204);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 }
