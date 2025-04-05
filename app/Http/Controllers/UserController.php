@@ -109,4 +109,26 @@ class UserController extends Controller
             ], 500);
         }
     }
+
+    /**
+     * Count the number of authors.
+     */
+    public function countAuthors()
+    {
+        try {
+            $count = User::whereHas('roles', function ($query) {
+                $query->where('name', 'author');
+            })->count();
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $count
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
