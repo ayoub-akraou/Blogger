@@ -52,6 +52,7 @@ class User extends Authenticatable
             $class = match ($attributes->type) {
                 'admin' => Admin::class,
                 'author' => Author::class,
+                'regular' => Regular::class,
                 default => static::class,
             };
         }
