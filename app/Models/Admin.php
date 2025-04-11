@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Admin extends User
@@ -10,8 +11,8 @@ class Admin extends User
     protected $table = 'users';
     protected static function booted()
     {
-        static::creating(function ($model) {
-            $model->type = 'admin';
+        static::addGlobalScope('admin', function (Builder $builder) {
+            $builder->where('type', 'admin');
         });
     }
 }
