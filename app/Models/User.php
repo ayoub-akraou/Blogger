@@ -21,6 +21,7 @@ abstract class User extends Authenticatable
         'name',
         'email',
         'password',
+        'type'
     ];
 
     /**
@@ -43,4 +44,21 @@ abstract class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    public function newFromBuilder($attributes = [], $connection = null)
+    {
+        $class = static::class;
+
+        if (!empty($attributes->type)) {
+            $class = match ($attributes->type) {
+                'admin' => Admin::class,
+                'author' => Author::class,
+                default => static::class,
+            };
+        }
+
+        $model = (new $class)->newInstance([], true);
+        $model->setRawAttributes((array) $attributes, true);
+
+        return $model;
+    }
 }
