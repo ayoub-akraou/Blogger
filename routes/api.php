@@ -59,5 +59,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('comments/{comment}', [CommentController::class, 'update']);
     Route::delete('comments/{comment}', [CommentController::class, 'destroy']);
     // Admin resources
-    Route::post('admin/approve-author/{user}', [AdminController::class, 'approveAuthor']);
+    Route::patch('admin/approve-author/{user}', [AdminController::class, 'approveAuthor']);
+    Route::patch('admin/reject-author/{user}', [AdminController::class, 'rejectAuthor']);
 });
