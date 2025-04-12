@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->text('bio')->nullable();
-            $table->enum('status', ['pending', 'active', 'suspended', 'rejected'])->default('pending');
+            $table->enum('status', ['active', 'suspended'])->default('active');
+            $table->enum('author_request', ['pending', 'accepted', 'rejected'])->nullable();
             $table->string('type')->default('regular');
             $table->timestamps();
         });
