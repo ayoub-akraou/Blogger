@@ -74,23 +74,24 @@ class User extends Authenticatable
         $this->save();
         return $this;
     }
-    
-    public static function login(string $email, string $password)
+
+    public function login(string $email, string $password)
     {
         $user = static::where('email', $email)->first();
-    
+        
         if (!$user || !Hash::check($password, $user->password)) {
             return false;
         }
-    
+
         // Delete existing tokens
         $user->tokens()->delete();
-    
+
         return [
             'user' => $user,
             'token' => $user->createToken('authToken')->plainTextToken
         ];
     }
+
     public static function logout($user)
     {
         try {
