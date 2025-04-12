@@ -52,4 +52,9 @@ class AdminController extends Controller
     {
         return Admin::approveAuthor($user);
     }
+
+    public function rejectAuthor(User $user)
+    {
+        return Admin::rejectAuthor($user);
+    }
 }
