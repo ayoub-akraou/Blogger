@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
@@ -57,4 +58,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('comments/{comment}', [CommentController::class, 'show']);
     Route::put('comments/{comment}', [CommentController::class, 'update']);
     Route::delete('comments/{comment}', [CommentController::class, 'destroy']);
+    // Admin resources
+    Route::post('admin/approve-author/{user}', [AdminController::class, 'approveAuthor']);
 });
