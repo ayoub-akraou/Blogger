@@ -32,4 +32,31 @@ class Admin extends User
             ], 500);
         }
     }
+
+    // les methodes All() et Count() sont deja herite de class Model de Laravel
+
+    public static function approveAuthor(User $user)
+    {
+        if ($user->author_request !== 'pending') {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User is not pending'
+            ], 400);
+        }
+        try {
+            $user->author_request = 'accepted';
+            $user->type = 'author';
+            $user->save();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Author approved successfully',
+                'data' => $user
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
