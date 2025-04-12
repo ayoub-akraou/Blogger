@@ -19,4 +19,9 @@ class Blog extends Model
         'likes',
         'status'
     ];
+
+    public function author()
+    {
+        return $this->belongsTo(Author::class);
+    }
 }

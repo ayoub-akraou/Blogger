@@ -17,4 +17,8 @@ class Author extends User
         });
     }
 
+    public function getBlogs()
+    {
+        return $this->hasMany(Blog::class);
+    }
 }
