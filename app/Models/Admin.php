@@ -59,4 +59,28 @@ class Admin extends User
             ], 500);
         }
     }
+
+    public static function rejectAuthor(User $user)
+    {
+        if ($user->author_request !== 'pending') {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User is not pending'
+            ], 400);
+        }
+        try {
+            $user->author_request = 'rejected';
+            $user->save();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Author rejected successfully',
+                'data' => $user
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
