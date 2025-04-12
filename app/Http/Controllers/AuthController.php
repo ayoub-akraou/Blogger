@@ -81,18 +81,18 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        try {
-            $request->user()->currentAccessToken()->delete();
+        $success = User::logout($request->user());
 
-            return response()->json([
-                'message' => 'Déconnexion réussie',
-            ]);
-        } catch (Exception $e) {
+        if (!$success) {
             return response()->json([
                 'success' => false,
                 'message' => 'Erreur lors de la déconnexion',
-                'error' => $e->getMessage(),
             ], 500);
         }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Déconnexion réussie',
+        ]);
     }
 }
