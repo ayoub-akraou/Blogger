@@ -53,10 +53,22 @@ class UserController extends Controller
                 'name' => 'sometimes|required|string|max:255',
                 'email' => 'sometimes|required|string|email|max:255|unique:users,email,' . $id,
                 'password' => 'sometimes|required|string|min:8|confirmed',
+                'bio' => 'sometimes|required|string',
+                'status' => 'sometimes|required|in:active,suspended',
+                'author_request' => 'sometimes|required|in:pending,accepted,rejected',
+                'type' => 'sometimes|required|in:regular,author',
             ]);
 
-        $user = User::findOrFail($id);
-        $user->update($request->only(['name', 'email', 'password' => bcrypt($request->password)]));
+            $user = User::findOrFail($id);
+            // Préparer les données à mettre à jour
+            $data = $request->only(['name', 'email', 'bio', 'status', 'author_request', 'type']);
+
+            // Si un nouveau mot de passe est fourni, on le hash
+            if ($request->filled('password')) {
+                $data['password'] = Hash::make($request->password);
+            }
+
+            $user->update($data);
 
             return response()->json([
                 'status' => 'success',
