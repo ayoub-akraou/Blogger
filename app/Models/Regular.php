@@ -16,4 +16,6 @@ class Regular extends User
             $builder->where('type', 'regular');
         });
     }
+
+    // les methodes All() et Count() sont deja herite de class Model de Laravel
 }
