@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -65,13 +66,13 @@ class User extends Authenticatable
         return $model;
     }
 
-    public static function register(array $data)
+    public function register(array $data)
     {
-        return static::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $this->name = $data['name'];
+        $this->email = $data['email'];
+        $this->password = Hash::make($data['password']);
+        $this->save();
+        return $this;
     }
     
     public static function login(string $email, string $password)
