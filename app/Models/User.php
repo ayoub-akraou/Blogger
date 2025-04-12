@@ -66,6 +66,12 @@ class User extends Authenticatable
         return $model;
     }
 
+    public function getBlogs()
+    {
+        return $this->belongsToMany(Blog::class, 'user_favorite_blog', 'user_id', 'blog_id');
+    }
+    
+
     public function register(array $data)
     {
         $this->name = $data['name'];
