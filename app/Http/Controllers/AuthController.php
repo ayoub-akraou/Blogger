@@ -52,20 +52,17 @@ class AuthController extends Controller
                 'password' => 'required'
             ]);
 
-            $user = User::where('email', $request->email)->first();
+            $result = User::login($request->email, $request->password);
 
-            if (!$user || !Hash::check($request->password, $user->password)) {
+            if (!$result) {
                 return response()->json(['message' => 'Identifiants incorrects'], 401);
             }
 
-            $user->tokens()->delete();
-
-            $token = $user->createToken('authToken')->plainTextToken;
-
             return response()->json([
+                'success' => true,
                 'message' => 'Connexion réussie',
-                'user' => $user,
-                'token' => $token,
+                'user' => $result['user'],
+                'token' => $result['token'],
             ]);
         } catch (ValidationException $e) {
             return response()->json([
@@ -83,7 +80,7 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request)
-    { 
+    {
         try {
             $request->user()->currentAccessToken()->delete();
 
