@@ -90,4 +90,13 @@ class User extends Authenticatable
             'token' => $user->createToken('authToken')->plainTextToken
         ];
     }
+    public static function logout($user)
+    {
+        try {
+            $user->currentAccessToken()->delete();
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 }
