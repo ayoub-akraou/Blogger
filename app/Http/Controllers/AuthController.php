@@ -19,7 +19,8 @@ class AuthController extends Controller
                 'password' => 'required|string|min:8|confirmed',
             ]);
 
-            $user = User::register($validatedData);
+            $user = new User();
+            $user->register($validatedData);
 
             $token = $user->createToken('authToken')->plainTextToken;
 
@@ -52,7 +53,8 @@ class AuthController extends Controller
                 'password' => 'required'
             ]);
 
-            $result = User::login($request->email, $request->password);
+            $user = new User();
+            $result = $user->login($request->email, $request->password);
 
             if (!$result) {
                 return response()->json(['message' => 'Identifiants incorrects'], 401);
