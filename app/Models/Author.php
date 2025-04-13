@@ -15,6 +15,9 @@ class Author extends User
         static::addGlobalScope('author', function (Builder $builder) {
             $builder->where('type', 'author');
         });
+        static::creating(function ($author) {
+            $author->type = 'author';
+        });
     }
 
     public function getBlogs()
