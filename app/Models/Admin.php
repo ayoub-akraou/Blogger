@@ -83,6 +83,12 @@ class Admin extends User
         return $user;
     }
 
+    public static function deleteUser(User $user)
+    {
+        $user->delete();
+        return $user;
+    }
+
     public static function activateBlog(Blog $blog)
     {
         if ($blog->status === 'active') {
