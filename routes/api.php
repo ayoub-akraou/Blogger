@@ -62,4 +62,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('admin/approve-author/{user}', [AdminController::class, 'approveAuthor']);
     Route::patch('admin/reject-author/{user}', [AdminController::class, 'rejectAuthor']);
     Route::patch('admin/activate-user/{user}', [AdminController::class, 'activateUser']);
+    Route::patch('admin/suspend-user/{user}', [AdminController::class, 'suspendUser']);
 });
