@@ -79,6 +79,16 @@ class Admin extends User
         $user->save();
         return $user;
     }
+    
+    public static function activateBlog(Blog $blog)
+    {
+        if ($blog->status === 'active') {
+            throw new DomainException('Blog is already active');
+        }
+        $blog->status = 'active';
+        $blog->save();
+        return $blog;
+    }
 }
 
 
