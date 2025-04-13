@@ -6,6 +6,8 @@ namespace Database\Seeders;
 
 use App\Models\Admin;
 use App\Models\Author;
+use App\Models\Blog;
+use App\Models\Category;
 use App\Models\Regular;
 use Illuminate\Database\Seeder;
 
@@ -30,16 +32,64 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Author::create([
-            'name' => 'Author',
-            'email' => 'author@author.com',
+            'name' => 'Author1',
+            'email' => 'author1@author.com',
+            'password' => bcrypt('password'),
+        ]);
+    
+        Author::create([
+            'name' => 'Author2',
+            'email' => 'author2@author.com',
             'password' => bcrypt('password'),
         ]);
         
         Regular::create([
-            'name' => 'Regular',
-            'email' => 'regular@regular.com',
+            'name' => 'Regular1',
+            'email' => 'regular1@regular.com',
+            'password' => bcrypt('password'),
+        ]);
+        Regular::create([
+            'name' => 'Regular2',
+            'email' => 'regular2@regular.com',
+            'password' => bcrypt('password'),
+        ]);
+        Regular::create([
+            'name' => 'Regular3',
+            'email' => 'regular3@regular.com',
             'password' => bcrypt('password'),
         ]);
 
+        Category::create([
+            'name' => 'Category1',
+            'description' => 'Description1',
+            'image' => 'image1.jpg',
+        ]);
+        Category::create([
+            'name' => 'Category2',
+            'description' => 'Description2',
+            'image' => 'image2.jpg',
+        ]);
+        Category::create([
+            'name' => 'Category3',
+            'description' => 'Description3',
+            'image' => 'image3.jpg',
+        ]);
+        Category::create([
+            'name' => 'Category4',
+            'description' => 'Description4',
+            'image' => 'image4.jpg',
+        ]);
+        Category::create([
+            'name' => 'Category5',
+            'description' => 'Description5',
+            'image' => 'image5.jpg',
+        ]);
+        Category::create([
+            'name' => 'Category6',
+            'description' => 'Description6',
+            'image' => 'image6.jpg',
+        ]);
+
+        Blog::factory(100)->create();
     }
 }
