@@ -52,6 +52,14 @@ class Admin extends User
     public static function rejectAuthor(User $user)
     {
         if ($user->author_request !== 'pending') {
+            throw new DomainException('User is not pending');
+        }
+
+        $user->author_request = 'rejected';
+        $user->save();
+        return $user;
+    }
+
             return response()->json([
                 'status' => 'error',
                 'message' => 'User is not pending'

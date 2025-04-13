@@ -74,6 +74,25 @@ class AdminController extends Controller
 
     public function rejectAuthor(User $user)
     {
-        return Admin::rejectAuthor($user);
+        try {
+            $user = Admin::rejectAuthor($user);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Author rejected successfully',
+                'data' => $user
+            ]);
+        } catch (\DomainException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 400);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+     
+    }
     }
 }
