@@ -16,6 +16,9 @@ class Admin extends User
         static::addGlobalScope('admin', function (Builder $builder) {
             $builder->where('type', 'admin');
         });
+        static::creating(function ($admin) {
+            $admin->type = 'admin';
+        });
     }
 
     public function getBlogs()
