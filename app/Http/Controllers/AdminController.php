@@ -217,4 +217,26 @@ class AdminController extends Controller
             ], 500);
         }
     }
+
+    public function deleteBlog(Blog $blog)
+    {
+        try {
+            $blog = Admin::deleteBlog($blog);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Blog deleted successfully',
+                'data' => $blog
+            ]);
+        } catch (\DomainException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 400);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
