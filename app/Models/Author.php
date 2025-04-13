@@ -24,4 +24,6 @@ class Author extends User
     {
         return $this->hasMany(Blog::class);
     }
+
+    // les methodes All() et Count() sont deja herite de class Model de Laravel
 }
