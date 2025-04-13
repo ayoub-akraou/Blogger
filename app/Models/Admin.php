@@ -60,24 +60,13 @@ class Admin extends User
         return $user;
     }
 
-            return response()->json([
-                'status' => 'error',
-                'message' => 'User is not pending'
-            ], 400);
+    public static function activateUser(User $user)
+    {
+        if ($user->status === 'active') {
+            throw new DomainException('User is already active');
         }
-        try {
-            $user->author_request = 'rejected';
-            $user->save();
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Author rejected successfully',
-                'data' => $user
-            ]);
-        } catch (Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $e->getMessage()
-            ], 500);
-        }
+        $user->status = 'active';
+        $user->save();
+        return $user;
     }
-}
+
