@@ -195,4 +195,26 @@ class AdminController extends Controller
             ], 500);
         }
     }
+
+    public function deleteUser(User $user)
+    {
+        try {
+            $user = Admin::deleteUser($user);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'User deleted successfully',
+                'data' => $user
+            ]);
+        } catch (\DomainException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 400);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
