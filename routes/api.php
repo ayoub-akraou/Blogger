@@ -59,10 +59,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('comments/{comment}', [CommentController::class, 'update']);
     Route::delete('comments/{comment}', [CommentController::class, 'destroy']);
     // Admin resources
+    //   authors
     Route::patch('admin/approve-author/{user}', [AdminController::class, 'approveAuthor']);
     Route::patch('admin/reject-author/{user}', [AdminController::class, 'rejectAuthor']);
+    //   users
     Route::patch('admin/activate-user/{user}', [AdminController::class, 'activateUser']);
     Route::patch('admin/suspend-user/{user}', [AdminController::class, 'suspendUser']);
+    Route::delete('admin/delete-user/{user}', [AdminController::class, 'deleteUser']);
+    //   blogs
     Route::patch('admin/activate-blog/{blog}', [AdminController::class, 'activateBlog']);
     Route::patch('admin/suspend-blog/{blog}', [AdminController::class, 'suspendBlog']);
     Route::get('admin/statistics', [AdminController::class, 'getGlobalStatistics']);
