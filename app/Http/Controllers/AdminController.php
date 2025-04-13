@@ -181,5 +181,18 @@ class AdminController extends Controller
             ], 500);
         }
     }
-
+    public function getGlobalStatistics()
+    {
+        try {
+            return response()->json([
+                'status' => 'success',
+                'data' => Admin::getGlobalStatistics()
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
