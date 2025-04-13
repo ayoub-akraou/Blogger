@@ -82,7 +82,7 @@ class Admin extends User
         $user->save();
         return $user;
     }
-    
+
     public static function activateBlog(Blog $blog)
     {
         if ($blog->status === 'active') {
@@ -103,8 +103,30 @@ class Admin extends User
         return $blog;
     }
 
+    public static function getGlobalStatistics()
+    {
+        $stats = [
+            'total_users' => User::count(),
+            'total_authors' => Author::count(),
+            'total_blogs' => Blog::count(),
+            'total_views' => Blog::sum('views'),
+            'top_three_authors' => Author::withCount('blogs')
+                ->orderBy('blogs_count', 'desc')
+                ->take(3)
+                ->get(),
+            'top_three_blogs' => Blog::orderBy('likes', 'desc')->take(3)->get(),
+            'category_stats' => Blog::with('category')
+                ->get()
+                ->groupBy('category_id')
+                ->map(function ($blogs) {
+                    $category = $blogs->first()->category;
+                    return [
+                        'category_name' => $category->name,
+                        'total_blogs' => count($blogs),
+                        'percentage' => round((count($blogs) / Blog::count()) * 100, 2)
+                    ];
+                })->values(),
+        ];
+        return $stats;
+    }
 }
-
-
-
-
