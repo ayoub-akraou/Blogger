@@ -94,5 +94,26 @@ class AdminController extends Controller
         }
      
     }
+    public function activateUser(User $user)
+    {
+        try {
+            $user = Admin::activateUser($user);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'User activated successfully',
+                'data' => $user
+            ]);
+        } catch (\DomainException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 400);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
     }
 }
