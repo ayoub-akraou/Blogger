@@ -69,5 +69,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //   blogs
     Route::patch('admin/activate-blog/{blog}', [AdminController::class, 'activateBlog']);
     Route::patch('admin/suspend-blog/{blog}', [AdminController::class, 'suspendBlog']);
+    Route::delete('admin/delete-blog/{blog}', [AdminController::class, 'deleteBlog']);
+    //   statistics
     Route::get('admin/statistics', [AdminController::class, 'getGlobalStatistics']);
 });
