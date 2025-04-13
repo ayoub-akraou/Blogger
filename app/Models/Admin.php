@@ -70,3 +70,17 @@ class Admin extends User
         return $user;
     }
 
+    public static function suspendUser(User $user)
+    {
+        if ($user->status === 'suspended') {
+            throw new DomainException('User is already suspended');
+        }
+        $user->status = 'suspended';
+        $user->save();
+        return $user;
+    }
+}
+
+
+
+
