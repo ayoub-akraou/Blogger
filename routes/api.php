@@ -64,4 +64,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('admin/activate-user/{user}', [AdminController::class, 'activateUser']);
     Route::patch('admin/suspend-user/{user}', [AdminController::class, 'suspendUser']);
     Route::patch('admin/activate-blog/{blog}', [AdminController::class, 'activateBlog']);
+    Route::patch('admin/suspend-blog/{blog}', [AdminController::class, 'suspendBlog']);
 });
