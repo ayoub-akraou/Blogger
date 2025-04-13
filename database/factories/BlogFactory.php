@@ -14,7 +14,7 @@ class BlogFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => Author::inRandomOrder()->first()->id,
+            'author_id' => Author::inRandomOrder()->first()->id,
             'category_id' => Category::inRandomOrder()->first()->id,
             'title' => $this->faker->sentence,
             'content' => $this->faker->paragraphs(3, true),
