@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Author;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Blog;
+use App\Models\Category;
 
 class BlogFactory extends Factory
 {
@@ -14,6 +15,7 @@ class BlogFactory extends Factory
     {
         return [
             'user_id' => Author::inRandomOrder()->first()->id,
+            'category_id' => Category::inRandomOrder()->first()->id,
             'title' => $this->faker->sentence,
             'content' => $this->faker->paragraphs(3, true),
             'image' => $this->faker->imageUrl(800, 600),
