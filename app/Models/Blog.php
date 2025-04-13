@@ -49,4 +49,8 @@ class Blog extends Model
     public function addTag(Tag $tag) {
         $this->tags()->attach($tag);
     }
+
+    public function removeTag(Tag $tag) {
+        $this->tags()->detach($tag);
+    }
 }

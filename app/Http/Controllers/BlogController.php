@@ -155,4 +155,20 @@ class BlogController extends Controller
             ], 500);
         }
     }
+
+    public function removeTag(Blog $blog, Tag $tag)
+    {
+        try {
+            $blog->removeTag($tag);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Tag supprimé avec succès'
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
