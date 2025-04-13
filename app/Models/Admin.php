@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DomainException;
 use Exception;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -38,26 +39,14 @@ class Admin extends User
     public static function approveAuthor(User $user)
     {
         if ($user->author_request !== 'pending') {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'User is not pending'
-            ], 400);
+            throw new DomainException('User is not pending');
         }
-        try {
-            $user->author_request = 'accepted';
-            $user->type = 'author';
-            $user->save();
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Author approved successfully',
-                'data' => $user
-            ]);
-        } catch (Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $e->getMessage()
-            ], 500);
-        }
+
+        $user->author_request = 'accepted';
+        $user->type = 'author';
+        $user->save();
+
+        return $user;
     }
 
     public static function rejectAuthor(User $user)
