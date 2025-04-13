@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Models\Tag;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
@@ -137,5 +138,21 @@ class BlogController extends Controller
             'request' => $request->all(),
             'data' => $blogs,
         ]);
+    }
+
+    public function addTag(Blog $blog, Tag $tag)
+    {
+        try {
+            $blog->addTag($tag);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Tag ajouté avec succès'
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 }

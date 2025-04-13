@@ -50,6 +50,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('blogs', [BlogController::class, 'index']);
     Route::post('blogs', [BlogController::class, 'store']);
     Route::get('blogs/search', [BlogController::class, 'search']);
+    Route::post('blogs/{blog}/{tag}', [BlogController::class, 'addTag']);
     Route::get('blogs/{blog}', [BlogController::class, 'show']);
     Route::put('blogs/{blog}', [BlogController::class, 'update']);
     Route::delete('blogs/{blog}', [BlogController::class, 'destroy']);

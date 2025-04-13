@@ -45,4 +45,8 @@ class Blog extends Model
             ->orWhereHas('author', fn($q) => $q->where('name', 'like', "%{$query}%"))
             ->get();
     }
+
+    public function addTag(Tag $tag) {
+        $this->tags()->attach($tag);
+    }
 }
