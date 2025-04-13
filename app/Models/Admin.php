@@ -108,6 +108,12 @@ class Admin extends User
         $blog->save();
         return $blog;
     }
+    
+    public static function deleteBlog(Blog $blog)
+    {
+        $blog->delete();
+        return $blog;
+    }
 
     public static function getGlobalStatistics()
     {
@@ -135,4 +141,5 @@ class Admin extends User
         ];
         return $stats;
     }
+
 }
