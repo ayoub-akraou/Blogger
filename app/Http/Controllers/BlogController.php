@@ -119,4 +119,23 @@ class BlogController extends Controller
             ], 500);
         }
     }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        if (!$query) {
+            return response()->json([
+                'message' => 'Paramètre "query" manquant.',
+            ], 400);
+        }
+
+        $blogs = Blog::search($query);
+
+        return response()->json([
+            'status' => 'success',
+            'request' => $request->all(),
+            'data' => $blogs,
+        ]);
+    }
 }
