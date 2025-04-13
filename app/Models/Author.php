@@ -20,7 +20,7 @@ class Author extends User
         });
     }
 
-    public function getBlogs()
+    public function blogs()
     {
         return $this->hasMany(Blog::class);
     }
