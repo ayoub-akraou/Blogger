@@ -89,6 +89,17 @@ class Admin extends User
         $blog->save();
         return $blog;
     }
+
+    public static function suspendBlog(Blog $blog)
+    {
+        if ($blog->status === 'suspended') {
+            throw new DomainException('Blog is already suspended');
+        }
+        $blog->status = 'suspended';
+        $blog->save();
+        return $blog;
+    }
+
 }
 
 
