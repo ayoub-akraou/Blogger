@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Blog;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -123,6 +124,28 @@ class AdminController extends Controller
                 'status' => 'success',
                 'message' => 'User suspended successfully',
                 'data' => $user
+            ]);
+        } catch (\DomainException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 400);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function activateBlog(Blog $blog)
+    {
+        try {
+            $blog = Admin::activateBlog($blog);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Blog activated successfully',
+                'data' => $blog
             ]);
         } catch (\DomainException $e) {
             return response()->json([
