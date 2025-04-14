@@ -6,6 +6,7 @@ use App\Models\Blog;
 use App\Models\Tag;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class BlogController extends Controller
@@ -203,4 +204,23 @@ class BlogController extends Controller
             ], 500);
         }
     }
+
+    public function toggleLike(Blog $blog)
+    {
+        $user = Auth::user();
+        try {
+            $blog->toggleLike($user);
+            return response()->json([
+                'status' => 'success',
+                'likes' => $blog->likes,
+                'message' => 'l\'action terminéé avec succès'
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
 }
