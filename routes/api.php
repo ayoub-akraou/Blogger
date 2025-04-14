@@ -43,6 +43,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // les tags
     Route::get('tags', [TagController::class, 'index']);
     Route::post('tags', [TagController::class, 'store']);
+    Route::post('tags/multiple', [TagController::class, 'storeMultiple']);
     Route::get('tags/{tag}', [TagController::class, 'show']);
     Route::put('tags/{tag}', [TagController::class, 'update']);
     Route::delete('tags/{tag}', [TagController::class, 'destroy']);
