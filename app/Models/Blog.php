@@ -58,4 +58,9 @@ class Blog extends Model
         $this->status = 'active';
         $this->save();
     }
+
+    public function unpublish() {
+        $this->status = 'suspended';
+        $this->save();
+    }
 }

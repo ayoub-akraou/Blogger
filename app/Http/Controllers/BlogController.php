@@ -187,4 +187,20 @@ class BlogController extends Controller
             ], 500);
         }
     }
+
+    public function unpublish(Blog $blog)
+    {
+        try {
+            $blog->unpublish();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Blog non publié'
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
