@@ -57,6 +57,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('blogs/{blog}', [BlogController::class, 'destroy']);
     Route::patch('blogs/{blog}/publish', [BlogController::class, 'publish']);
     Route::patch('blogs/{blog}/unpublish', [BlogController::class, 'unpublish']);
+    Route::post('blogs/{blog}/like', [BlogController::class, 'like']);
     // les commentaires
     Route::get('comments', [CommentController::class, 'index']);
     Route::post('comments', [CommentController::class, 'store']);
