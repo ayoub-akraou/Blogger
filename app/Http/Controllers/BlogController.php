@@ -213,6 +213,7 @@ class BlogController extends Controller
             return response()->json([
                 'status' => 'success',
                 'likes' => $blog->likes,
+                'dislikes' => $blog->dislikes,
                 'message' => 'l\'action terminéé avec succès'
             ]);
         } catch (Exception $e) {
@@ -235,7 +236,9 @@ class BlogController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
+                'likes' => $blog->likes,
+                'dislikes' => $blog->dislikes
             ], 500);
         }
     }
