@@ -223,4 +223,20 @@ class BlogController extends Controller
         }
     }
 
+    public function toggleDislike(Blog $blog)
+    {
+        $user = Auth::user();
+        try {
+            $blog->toggleDislike($user);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'l\'action terminéé avec succès'
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
