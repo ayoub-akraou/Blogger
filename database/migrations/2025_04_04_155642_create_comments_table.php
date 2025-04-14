@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('blog_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->text('content');
-            $table->enum('status', ['published', 'deleted'])->default('published');
             $table->timestamps();
         });
     }

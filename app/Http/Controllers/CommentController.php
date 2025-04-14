@@ -35,7 +35,6 @@ class CommentController extends Controller
                 'blog_id' => 'required|exists:blogs,id',
                 'user_id' => 'required|exists:users,id',
                 'content' => 'required|string',
-                'status' => 'nullable|string|in:published,deleted',
             ]);
 
             $comment = Comment::create($validated);
@@ -86,7 +85,6 @@ class CommentController extends Controller
                 'blog_id' => 'sometimes|required|exists:blogs,id',
                 'user_id' => 'sometimes|required|exists:users,id',
                 'content' => 'sometimes|required|string',
-                'status' => 'sometimes|nullable|string|in:published,deleted',
             ]);
 
             $comment->update($validated);
