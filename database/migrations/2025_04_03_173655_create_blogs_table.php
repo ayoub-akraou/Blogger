@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('image')->nullable(); 
             $table->integer('views')->default(0)->unsigned(); 
             $table->integer('likes')->default(0)->unsigned(); 
+            $table->integer('dislikes')->default(0)->unsigned(); 
             $table->enum('status', ["active", "suspended"])->default('active'); 
             $table->timestamps(); 
         });
