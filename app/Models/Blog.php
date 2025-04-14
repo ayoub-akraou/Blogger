@@ -53,4 +53,9 @@ class Blog extends Model
     public function removeTag(Tag $tag) {
         $this->tags()->detach($tag);
     }
+
+    public function publish() {
+        $this->status = 'active';
+        $this->save();
+    }
 }
