@@ -94,7 +94,7 @@ class Blog extends Model
             $like->type == 'dislike' ? $this->dislikes-- : $this->likes--;
             $like->delete();
             $this->save();
-            return;
+            if($like->type == 'like') return;
         }
         $this->likes++;
         $this->save();
@@ -112,7 +112,7 @@ class Blog extends Model
             $like->type == 'dislike' ? $this->dislikes-- : $this->likes--;
             $like->delete();
             $this->save();
-            return;
+            if ($like->type == 'dislike') return;
         }
         $this->dislikes++;
         $this->save();
