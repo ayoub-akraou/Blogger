@@ -63,6 +63,11 @@ class Blog extends Model
         $this->status = 'suspended';
         $this->save();
     }
+    public function increamentViews()
+    {
+        $this->views++;
+        $this->save();
+    }
 
     public function toggleLike(User $user)
     {
