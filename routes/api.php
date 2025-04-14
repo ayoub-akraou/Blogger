@@ -51,6 +51,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('blogs', [BlogController::class, 'store']);
     Route::get('blogs/search', [BlogController::class, 'search']);
     Route::post('blogs/{blog}/like', [BlogController::class, 'toggleLike']);
+    Route::post('blogs/{blog}/dislike', [BlogController::class, 'toggleDislike']);
     Route::post('blogs/{blog}/{tag}', [BlogController::class, 'addTag']);
     Route::delete('blogs/{blog}/{tag}', [BlogController::class, 'removeTag']);
     Route::get('blogs/{blog}', [BlogController::class, 'show']);
@@ -58,7 +59,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('blogs/{blog}', [BlogController::class, 'destroy']);
     Route::patch('blogs/{blog}/publish', [BlogController::class, 'publish']);
     Route::patch('blogs/{blog}/unpublish', [BlogController::class, 'unpublish']);
-    Route::post('blogs/{blog}/like', [BlogController::class, 'like']);
     // les commentaires
     Route::get('comments', [CommentController::class, 'index']);
     Route::post('comments', [CommentController::class, 'store']);
