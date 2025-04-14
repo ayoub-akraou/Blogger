@@ -44,6 +44,12 @@ class Blog extends Model
             ->where('type', 'like');
     }
 
+    public function dislikes()
+    {
+        return $this->hasMany(Like::class)
+            ->where('type', 'dislike');
+    }
+
     public static function search($query)
     {
         return self::where('title', 'like', "%{$query}%")
