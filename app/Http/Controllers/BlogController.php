@@ -212,9 +212,9 @@ class BlogController extends Controller
             $blog->toggleLike($user);
             return response()->json([
                 'status' => 'success',
+                'message' => 'l\'action terminéé avec succès',
                 'likes' => $blog->likes,
                 'dislikes' => $blog->dislikes,
-                'message' => 'l\'action terminéé avec succès'
             ]);
         } catch (Exception $e) {
             return response()->json([
@@ -231,14 +231,14 @@ class BlogController extends Controller
             $blog->toggleDislike($user);
             return response()->json([
                 'status' => 'success',
-                'message' => 'l\'action terminéé avec succès'
+                'message' => 'l\'action terminéé avec succès',
+                'likes' => $blog->likes,
+                'dislikes' => $blog->dislikes
             ]);
         } catch (Exception $e) {
             return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage(),
-                'likes' => $blog->likes,
-                'dislikes' => $blog->dislikes
             ], 500);
         }
     }
