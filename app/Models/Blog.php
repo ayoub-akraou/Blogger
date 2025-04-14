@@ -64,9 +64,9 @@ class Blog extends Model
         $this->save();
     }
 
-    public function like(User $user)
+    public function toggleLike(User $user)
     {
-        $like = Like::where('blog_id', $this->id)->where('user_id', $user->id)->exists();
+        $like = Like::where('blog_id', $this->id)->where('user_id', $user->id)->first();
         if ($like) {
             $like->type == 'dislike' ? $this->dislikes-- : $this->likes--;
             $like->delete();
