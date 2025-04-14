@@ -239,4 +239,21 @@ class BlogController extends Controller
             ], 500);
         }
     }
+
+    public function increamentViews(Blog $blog)
+    {
+        try {
+            $blog->increamentViews();
+            return response()->json([
+                'status' => 'success',
+                'message' => 'l\'action terminéé avec succès',
+                'views' => $blog->views
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
