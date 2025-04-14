@@ -81,4 +81,22 @@ class Blog extends Model
             'type' => 'like'
         ]);
     }
+
+    public function toggleDislike(User $user)
+    {
+        $like = Like::where('blog_id', $this->id)->where('user_id', $user->id)->first();
+        if ($like) {
+            $like->type == 'dislike' ? $this->dislikes-- : $this->likes--;
+            $like->delete();
+            $this->save();
+            return;
+        }
+        $this->dislikes++;
+        $this->save();
+        Like::create([
+            'blog_id' => $this->id,
+            'user_id' => $user->id,
+            'type' => 'dislike'
+        ]);
+    }
 }
