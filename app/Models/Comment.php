@@ -13,7 +13,6 @@ class Comment extends Model
         'blog_id',
         'user_id',
         'content',
-        'likes',
         'status'
     ];
 

@@ -35,7 +35,6 @@ class CommentController extends Controller
                 'blog_id' => 'required|exists:blogs,id',
                 'user_id' => 'required|exists:users,id',
                 'content' => 'required|string',
-                'likes' => 'nullable|integer',
                 'status' => 'nullable|string|in:published,deleted',
             ]);
 
@@ -87,7 +86,6 @@ class CommentController extends Controller
                 'blog_id' => 'sometimes|required|exists:blogs,id',
                 'user_id' => 'sometimes|required|exists:users,id',
                 'content' => 'sometimes|required|string',
-                'likes' => 'sometimes|nullable|integer',
                 'status' => 'sometimes|nullable|string|in:published,deleted',
             ]);
 
