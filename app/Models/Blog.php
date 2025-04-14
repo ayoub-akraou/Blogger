@@ -75,6 +75,12 @@ class Blog extends Model
         $this->status = 'suspended';
         $this->save();
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function increamentViews()
     {
         $this->views++;

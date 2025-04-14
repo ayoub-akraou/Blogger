@@ -16,4 +16,8 @@ class Comment extends Model
         'likes',
         'status'
     ];
+    public function blog()
+    {
+        return $this->belongsTo(Blog::class);
+    }
 }
