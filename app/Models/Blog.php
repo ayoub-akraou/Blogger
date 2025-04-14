@@ -63,4 +63,22 @@ class Blog extends Model
         $this->status = 'suspended';
         $this->save();
     }
+
+    public function like(User $user)
+    {
+        $like = Like::where('blog_id', $this->id)->where('user_id', $user->id)->exists();
+        if ($like) {
+            $like->type == 'dislike' ? $this->dislikes-- : $this->likes--;
+            $like->delete();
+            $this->save();
+            return;
+        }
+        $this->likes++;
+        $this->save();
+        Like::create([
+            'blog_id' => $this->id,
+            'user_id' => $user->id,
+            'type' => 'like'
+        ]);
+    }
 }
