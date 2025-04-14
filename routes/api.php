@@ -52,6 +52,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('blogs/search', [BlogController::class, 'search']);
     Route::post('blogs/{blog}/like', [BlogController::class, 'toggleLike']);
     Route::post('blogs/{blog}/dislike', [BlogController::class, 'toggleDislike']);
+    Route::patch('blogs/{blog}/increment-views', [BlogController::class, 'increamentViews']);
     Route::post('blogs/{blog}/{tag}', [BlogController::class, 'addTag']);
     Route::delete('blogs/{blog}/{tag}', [BlogController::class, 'removeTag']);
     Route::get('blogs/{blog}', [BlogController::class, 'show']);
