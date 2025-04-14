@@ -21,7 +21,7 @@ class Comment extends Model
         return $this->belongsTo(Blog::class);
     }
 
-    public function user()
+    public function owner()
     {
         return $this->belongsTo(User::class);
     }
