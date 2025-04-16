@@ -70,7 +70,7 @@ class User extends Authenticatable
         return $model;
     }
 
-    public function getBlogs()
+    public function blogs()
     {
         return $this->belongsToMany(Blog::class, 'user_favorite_blog', 'user_id', 'blog_id');
     }
