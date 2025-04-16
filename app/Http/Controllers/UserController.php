@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
@@ -143,4 +145,32 @@ class UserController extends Controller
             ], 500);
         }
     }
+
+    public function follow(Author $author)
+    {
+        try {
+            $authUser = Auth::user();
+
+            if ($authUser->id === $author->id) {
+                throw new \Exception('Cannot follow yourself');
+            }
+
+            if ($authUser->isFollowing($author)) {
+                throw new \Exception('Already following this Author');
+            }
+
+            $authUser->follow($author);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Author followed successfully',
+                'following_count' => $authUser->following()->count(),
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
 }
