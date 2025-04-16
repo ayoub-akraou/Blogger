@@ -124,4 +124,33 @@ class TagController extends Controller
             ], 500);
         }
     }
+
+    public function storeMultiple(Request $request)
+    {
+        try {
+            $validated = $request->validate([
+                'tags' => 'required|array',
+                'tags.*.name' => 'required|string|max:255|unique:tags',
+                'tags.*.color' => 'required|string|max:255'
+            ]);
+
+            $tags = Tag::createMultiple($validated['tags']);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Tags created successfully',
+                'data' => $tags
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->errors()
+            ], 422);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
