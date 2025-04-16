@@ -134,4 +134,17 @@ class User extends Authenticatable
             ->exists();
     }
     
+    public static function follow(Author $author)
+    {
+        $authUser = Auth::user();
+        if ($authUser->id === $author->id) {
+            throw new \Exception('Cannot follow yourself');
+        }
+
+        return Follow::create([
+            'user_id' => $authUser->id,
+            'following_id' => $author->id
+        ]);
+    }
+
 }
