@@ -126,4 +126,12 @@ class User extends Authenticatable
         return $this->belongsToMany(User::class, 'follows', 'following_id', 'user_id');
     }
 
+    public static function isFollowing(Author $author)
+    {
+        $authUser = Auth::user();
+        return Follow::where('user_id', $authUser->id)
+            ->where('following_id', $author->id)
+            ->exists();
+    }
+    
 }
