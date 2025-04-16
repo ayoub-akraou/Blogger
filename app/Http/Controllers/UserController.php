@@ -27,6 +27,21 @@ class UserController extends Controller
         }
     }
 
+    public function profile() {
+        try {
+            $user = User::profile();
+            return response()->json([
+                'status' => 'success',
+                'data' => $user
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
     /**
      * Display the specified resource.
      */
