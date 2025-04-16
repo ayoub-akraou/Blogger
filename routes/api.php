@@ -31,6 +31,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('users', [UserController::class, 'index']);
     Route::get('users/count', [UserController::class, 'count']);
     Route::get('users/authors/count', [UserController::class, 'countAuthors']);
+    Route::get('profile', [UserController::class, 'profile']);
     Route::get('users/{user}', [UserController::class, 'show']);
     Route::put('users/{user}', [UserController::class, 'update']);
     Route::delete('users/{user}', [UserController::class, 'destroy']);
