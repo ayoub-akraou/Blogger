@@ -155,4 +155,14 @@ class User extends Authenticatable
             ->where('following_id', $author->id)
             ->delete();
     }
+
+    public static function profile() {
+        $user = Auth::user();
+        $user->following;
+        if ($user->type === 'author') {
+            $user->followers;
+            $user->blogs;
+        }
+        return $user;
+    }
 }
