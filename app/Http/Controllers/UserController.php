@@ -173,4 +173,30 @@ class UserController extends Controller
         }
     }
 
+    public function unfollow(Author $author)
+    {
+        try {
+            $authUser = Auth::user();
+
+            if ($authUser->id === $author->id) {
+                throw new \Exception('Cannot unfollow yourself');
+            }
+
+            if (!$authUser->isFollowing($author)) {
+                throw new \Exception('Not following this Author');
+            }
+
+            $authUser->unfollow($author);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Author unfollowed successfully',
+                'following_count' => $authUser->following()->count()
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 }
