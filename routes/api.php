@@ -36,6 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('users/{user}', [UserController::class, 'destroy']);
     // follow
     Route::post('users/{author}/follow', [UserController::class, 'follow']);
+    Route::post('users/{author}/unfollow', [UserController::class, 'unfollow']);
     // les categories
     Route::get('categories', [CategoryController::class, 'index']);
     Route::post('categories', [CategoryController::class, 'store']);
