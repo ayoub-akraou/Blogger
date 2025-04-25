@@ -1,10 +1,12 @@
 import React from "react";
 import Button from "../components/UI/Button/Button";
+import BlogCard from "../components/UI/Cards/BlogCard.jsx";
 
 export default function Home() {
   return (
     <>
       <Hero />
+      <RecentlyPosted />
     </>
   );
 }
@@ -47,4 +49,23 @@ function Hero() {
   );
 }
 
+function RecentlyPosted() {
+  return (
+    <section className="py-12 container mx-auto px-24 min-[500px]:px-6">
+      <div className="flex items-center justify-between mb-8">
+        <h2 className="text-xl font-semibold">
+          <span className="bg-primary rounded px-2 py-1 mr-1 leading-none text-white">
+            Recently
+          </span>
+          Posted
+        </h2>
+      </div>
+      <div className="flex flex-col justify-between gap-4 min-[500px]:flex-row">
+        <BlogCard image="/images/home-hero.png" avatar="/images/avatar.png" />
+        <BlogCard image="/images/home-hero.png" avatar="/images/avatar.png" />
+        <BlogCard image="/images/home-hero.png" avatar="/images/avatar.png" />
+      </div>
+    </section>
+  );
+}
 }
