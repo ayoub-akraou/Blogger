@@ -12,7 +12,7 @@ export default function Header({ className }) {
     setIsOpened(prev => !prev);
   }
   return (
-    <header className={`${className} bg-secondary  px-10 py-5 text-white`}>
+    <header className={`${className} fixed top-0 left-0 w-screen z-50 bg-secondary  px-10 py-3 text-white`}>
       <nav className="mx-auto container flex items-center justify-between gap-5">
         <Logo isLight={true} className="mr-auto hidden sm:block" />
         <LogoIcon className="sm:hidden"></LogoIcon>
