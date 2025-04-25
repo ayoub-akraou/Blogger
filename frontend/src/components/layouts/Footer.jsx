@@ -1,6 +1,7 @@
 import React from "react";
 import Logo from "../UI/Logo/Logo";
 import Button from "../UI/Button/Button";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
@@ -9,7 +10,7 @@ export default function Footer() {
         <Nav />
         <Subscribe />
 
-        <div className="flex justify-center sm:justify-between items-center sm:mt-20 sm:border-t border-gray-secondary sm:pt-8">
+        <div className="flex justify-center sm:justify-between items-center sm:mt-8 sm:border-t border-gray-secondary sm:pt-8">
           <ContactInfo />
           <SocialMediaLinks />
         </div>
@@ -20,38 +21,23 @@ export default function Footer() {
 
 function Nav() {
   return (
-    <nav className="flex flex-col sm:flex-row items-center justify-between sm:mb-12">
+    <nav className="flex flex-col sm:flex-row items-center justify-between sm:mb-6">
       <Logo isLight={true} />
-      <ul class="flex flex-col sm:flex-row justify-center items-center flex-wrap gap-4 md:gap-6">
+      <ul className="flex flex-col sm:flex-row justify-center items-center flex-wrap gap-4 md:gap-6 [&_a]:hover:text-yellow">
         <li>
-          <a href="#" class="hover:text-yellow transition-colors">
-            Home
-          </a>
+          <Link to="/">Home</Link>
         </li>
         <li>
-          <a href="#" class="hover:text-yellow transition-colors">
-            Blogs
-          </a>
+          <Link to="/blogs">Blogs</Link>
         </li>
         <li>
-          <a href="#" class="hover:text-yellow transition-colors">
-            Categories
-          </a>
+          <Link to="/about-us">About us</Link>
         </li>
         <li>
-          <a href="#" class="hover:text-yellow transition-colors">
-            About us
-          </a>
+          <Link to="/categories">Categories</Link>
         </li>
         <li>
-          <a href="#" class="hover:text-yellow transition-colors">
-            Contact us
-          </a>
-        </li>
-        <li>
-          <a href="#" class="hover:text-yellow transition-colors">
-            Privacy Policy
-          </a>
+          <Link to="/contact-us">Contact us</Link>
         </li>
       </ul>
     </nav>
@@ -60,29 +46,29 @@ function Nav() {
 
 function SocialMediaLinks() {
   return (
-    <ul class="flex gap-4 mt-6 md:mt-0">
+    <ul className="flex gap-4 mt-6 md:mt-0">
       <li>
-        <a href="#" class="text-gray-300 hover:text-white transition-colors">
-          <i class="fab fa-facebook-f"></i>
-          <span class="sr-only">Facebook</span>
+        <a href="#" className="text-gray-300 hover:text-white transition-colors">
+          <i className="fab fa-facebook-f"></i>
+          <span className="sr-only">Facebook</span>
         </a>
       </li>
       <li>
-        <a href="#" class="text-gray-300 hover:text-white transition-colors">
-          <i class="fab fa-twitter"></i>
-          <span class="sr-only">Twitter</span>
+        <a href="#" className="text-gray-300 hover:text-white transition-colors">
+          <i className="fab fa-twitter"></i>
+          <span className="sr-only">Twitter</span>
         </a>
       </li>
       <li>
-        <a href="#" class="text-gray-300 hover:text-white transition-colors">
-          <i class="fab fa-instagram"></i>
-          <span class="sr-only">Instagram</span>
+        <a href="#" className="text-gray-300 hover:text-white transition-colors">
+          <i className="fab fa-instagram"></i>
+          <span className="sr-only">Instagram</span>
         </a>
       </li>
       <li>
-        <a href="#" class="text-gray-300 hover:text-white transition-colors">
-          <i class="fab fa-linkedin-in"></i>
-          <span class="sr-only">LinkedIn</span>
+        <a href="#" className="text-gray-300 hover:text-white transition-colors">
+          <i className="fab fa-linkedin-in"></i>
+          <span className="sr-only">LinkedIn</span>
         </a>
       </li>
     </ul>
