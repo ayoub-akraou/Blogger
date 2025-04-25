@@ -2,6 +2,7 @@ import React from "react";
 import Button from "../components/UI/Button/Button";
 import BlogCard from "../components/UI/Cards/BlogCard.jsx";
 import AuthorCard from "../components/UI/Cards/AuthorCard.jsx";
+import TestimonialCard from "../components/UI/Cards/TestimonialCard.jsx";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <PopularBlogs />
       <TopAuthors />
       <NewCategory />
+      <Testimonials />
     </>
   );
 }
@@ -129,4 +131,24 @@ function NewCategory({
   );
 }
 
+function Testimonials() {
+  return (
+    <section className="m-28 py-16 bg-yellow-50">
+      <div className="container mx-auto px-6 max-w-screen-lg">
+        <div className="grid grid-cols-1 md:grid-cols-2 ">
+          <div className="flex flex-col justify-center sm:border-r border-gray-500 p-4 sm:p-8 sm:pr-16">
+            <h3 className="text-sm font-medium uppercase mb-2">TESTIMONIALS</h3>
+            <h2 className="text-4xl font-bold mb-4 sm:mb-8">
+              What people say about our blog
+            </h2>
+            <p className="text-gray-600">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor.
+            </p>
+          </div>
+          <TestimonialCard />
+        </div>
+      </div>
+    </section>
+  );
 }
