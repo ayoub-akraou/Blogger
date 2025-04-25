@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../components/UI/Button/Button";
 import BlogCard from "../components/UI/Cards/BlogCard.jsx";
+import AuthorCard from "../components/UI/Cards/AuthorCard.jsx";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <Hero />
       <RecentlyPosted />
       <PopularBlogs />
+      <TopAuthors />
     </>
   );
 }
@@ -90,4 +92,19 @@ function PopularBlogs() {
   );
 }
 
+function TopAuthors() {
+  return (
+    <section className="pb-32 pt-8 container mx-auto px-6">
+      <h2 className="text-2xl font-semibold text-center mb-10">
+        Our Top Authors
+      </h2>
+      <div className="flex justify-between items-center max-w-screen-md mx-auto gap-8 flex-wrap sm:gap-6 ">
+        <AuthorCard />
+        <AuthorCard />
+        <AuthorCard />
+        <AuthorCard />
+      </div>
+    </section>
+  );
+}
 }
