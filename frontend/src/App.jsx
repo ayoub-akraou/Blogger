@@ -7,6 +7,7 @@ import AboutUs from "./pages/AboutUs.jsx";
 import ContactUs from "./pages/ContactUs.jsx";
 import Categories from "./pages/Categories.jsx";
 import Blogs from "./pages/Blogs.jsx";
+import NotFound from "./pages/404.jsx";
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );
