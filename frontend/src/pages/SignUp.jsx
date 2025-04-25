@@ -4,7 +4,7 @@ import Button from "../components/UI/Button/Button";
 
 export default function SignUp() {
   return (
-    <div className="flex justify-between">
+    <div className="min-h-screen flex justify-between">
       <div className="form mx-auto flex-[3] px-14">
         <div class="w-full max-w-md pt-6">
           <Logo />
@@ -14,20 +14,20 @@ export default function SignUp() {
           Sign up to Blogger
         </h1>
 
-        <form class="space-y-4 max-w-md mx-auto">
+        <form class="space-y-2.5 max-w-md mx-auto">
           <div class="flex flex-wrap gap-4">
             <div class="flex-1 min-w-[45%]">
               <input
                 type="text"
                 placeholder="First name"
-                class="w-full px-4 py-3 border border-[#e2e2ea] rounded focus:outline-none focus:ring-2 focus:ring-[#ffd050]"
+                class="w-full px-4 py-2 border border-[#e2e2ea] rounded focus:outline-none focus:ring-2 focus:ring-[#ffd050]"
               />
             </div>
             <div class="flex-1 min-w-[45%]">
               <input
                 type="text"
                 placeholder="Last name"
-                class="w-full px-4 py-3 border border-[#e2e2ea] rounded focus:outline-none focus:ring-2 focus:ring-[#ffd050]"
+                class="w-full px-4 py-2 border border-[#e2e2ea] rounded focus:outline-none focus:ring-2 focus:ring-[#ffd050]"
               />
             </div>
           </div>
@@ -39,7 +39,7 @@ export default function SignUp() {
             <input
               type="email"
               placeholder="dev@domain.com"
-              class="w-full px-4 py-3 border border-[#e2e2ea] rounded focus:outline-none focus:ring-2 focus:ring-[#ffd050]"
+              class="w-full px-4 py-2 border border-[#e2e2ea] rounded focus:outline-none focus:ring-2 focus:ring-[#ffd050]"
             />
           </div>
 
@@ -48,7 +48,7 @@ export default function SignUp() {
             <input
               type="password"
               placeholder="****************"
-              class="w-full px-4 py-3 border border-[#e2e2ea] rounded focus:outline-none focus:ring-2 focus:ring-[#ffd050]"
+              class="w-full px-4 py-2 border border-[#e2e2ea] rounded focus:outline-none focus:ring-2 focus:ring-[#ffd050]"
             />
           </div>
 
@@ -59,7 +59,7 @@ export default function SignUp() {
             <input
               type="password"
               placeholder="****************"
-              class="w-full px-4 py-3 border border-[#e2e2ea] rounded focus:outline-none focus:ring-2 focus:ring-[#ffd050]"
+              class="w-full px-4 py-2 border border-[#e2e2ea] rounded focus:outline-none focus:ring-2 focus:ring-[#ffd050]"
             />
           </div>
 
@@ -81,11 +81,11 @@ export default function SignUp() {
           </a>
         </div>
       </div>
-      <div className="image max-h-screen flex-[2]">
+      <div className="image max-h-screen h-full flex-[2]">
         <img
           src="/images/signup.png"
           alt=""
-          className="object-cover max-h-screen min-w-full"
+          className="object-cover min-w-full h-screen"
         />
       </div>
     </div>
