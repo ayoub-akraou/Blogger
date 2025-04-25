@@ -63,7 +63,7 @@ export default function Login() {
               </form>
 
               <Button className=" bg-black text-white mt-6 w-full">
-                <Link to="/register">Create new account</Link>
+                <Link to="/signup">Create new account</Link>
               </Button>
             </div>
             <div class="flex mx-auto space-x-4 text-sm text-secondary pt-8">
