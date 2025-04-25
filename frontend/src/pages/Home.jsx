@@ -7,6 +7,7 @@ export default function Home() {
     <>
       <Hero />
       <RecentlyPosted />
+      <PopularBlogs />
     </>
   );
 }
@@ -68,4 +69,25 @@ function RecentlyPosted() {
     </section>
   );
 }
+
+function PopularBlogs() {
+  return (
+    <section className="py-12 container mx-auto px-24 min-[500px]:px-6">
+      <div className="flex items-center justify-between mb-8">
+        <h2 className="text-xl font-semibold">
+          <span className="bg-primary rounded px-2 py-1 mr-1 leading-none text-white">
+            Popular
+          </span>
+          Blogs
+        </h2>
+      </div>
+      <div className="flex flex-col justify-between gap-4 min-[500px]:flex-row">
+        <BlogCard image="/images/home-hero.png" avatar="/images/avatar.png" />
+        <BlogCard image="/images/home-hero.png" avatar="/images/avatar.png" />
+        <BlogCard image="/images/home-hero.png" avatar="/images/avatar.png" />
+      </div>
+    </section>
+  );
+}
+
 }
