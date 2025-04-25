@@ -10,6 +10,7 @@ export default function Home() {
       <RecentlyPosted />
       <PopularBlogs />
       <TopAuthors />
+      <NewCategory />
     </>
   );
 }
@@ -107,4 +108,25 @@ function TopAuthors() {
     </section>
   );
 }
+
+function NewCategory({
+  title = "ART",
+  description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.",
+}) {
+  return (
+    <section className="relative py-32 w-full bg-black bg-[url('/public/images/new-category.png')] bg-center bg-cover">
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="max-w-md mx-auto bg-black/30 backdrop-blur-sm p-10 rounded-lg text-center text-white">
+          <p className="text-sm font-medium mb-2">NEW CATEGORY</p>
+          <h2 className="text-4xl font-bold mb-4">{title}</h2>
+          <p className="text-sm mb-6">{description}</p>
+          <Button className="bg-yellow-500 hover:bg-yellow-600 text-black">
+            Discover
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 }
