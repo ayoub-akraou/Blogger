@@ -1,13 +1,14 @@
 import React from "react";
 import Logo from "../components/UI/Logo/Logo";
 import Button from "../components/UI/Button/Button";
+import { Link } from "react-router-dom";
 
 export default function SignUp() {
   return (
     <div className="min-h-screen flex justify-between">
       <div className="form mx-auto flex-[3] px-14">
         <div class="w-full max-w-md pt-6">
-          <Logo />
+          <Link to="/"><Logo /></Link>
         </div>
 
         <h1 class="text-[#232536] text-2xl font-medium mb-6 text-center">
