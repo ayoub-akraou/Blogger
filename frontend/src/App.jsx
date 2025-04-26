@@ -9,6 +9,15 @@ import Categories from "./pages/Categories.jsx";
 import Blogs from "./pages/Blogs.jsx";
 import NotFound from "./pages/404.jsx";
 import Profile from "./pages/Profile.jsx";
+// author dashboard
+import AuthorDashboard from "./pages/AuthorDashboard.jsx";
+// Admin
+import DashBoardLayout from "./components/layouts/DashBoardLayout.jsx";
+import UsersTable from "./pages/UsersTable.jsx";
+import BlogsTable from "./pages/BlogsTable.jsx";
+import CategoriesTable from "./pages/CategoriesTable.jsx";
+import TagsTable from "./pages/TagsTable.jsx";
+import Stats from "./pages/stats.jsx";
 
 export default function App() {
   return (
@@ -21,6 +30,15 @@ export default function App() {
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/author-dashboard" element={<AuthorDashboard />} />
+          <Route path="/admin-dashboard" element={<AdminDashBoard />} />
+        </Route>
+        <Route path="/admin" element={<DashBoardLayout />}>
+          <Route index element={<UsersTable />} />
+          <Route path="/blogs" element={<BlogsTable />} />
+          <Route path="/categories" element={<CategoriesTable />} />
+          <Route path="/tags" element={<TagsTable />} />
+          <Route path="/stats" element={<Stats />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
