@@ -18,6 +18,15 @@ import BlogsTable from "./pages/BlogsTable.jsx";
 import CategoriesTable from "./pages/CategoriesTable.jsx";
 import TagsTable from "./pages/TagsTable.jsx";
 import Stats from "./pages/stats.jsx";
+// author dashboard
+import AuthorDashboard from "./pages/AuthorDashboard.jsx";
+// Admin
+import DashBoardLayout from "./components/layouts/DashBoardLayout.jsx";
+import UsersTable from "./pages/UsersTable.jsx";
+import BlogsTable from "./pages/BlogsTable.jsx";
+import CategoriesTable from "./pages/CategoriesTable.jsx";
+import TagsTable from "./pages/TagsTable.jsx";
+import Stats from "./pages/stats.jsx";
 
 export default function App() {
   return (
