@@ -8,6 +8,7 @@ import ContactUs from "./pages/ContactUs.jsx";
 import Categories from "./pages/Categories.jsx";
 import Blogs from "./pages/Blogs.jsx";
 import NotFound from "./pages/404.jsx";
+import Profile from "./pages/Profile.jsx";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/categories" element={<Categories />} />
+          <Route path="/profile" element={<Profile />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
