@@ -15,7 +15,7 @@ export default function Login() {
       <body class="min-h-screen container mx-auto">
         <main class="flex min-h-screen ">
           <div class="flex-1 flex flex-col items-start justify-between p-8 md:p-14 ">
-            <Logo />
+            <Link to="/"><Logo /></Link>
 
             <div class=" w-full mx-auto flex flex-col  items-center">
               <h1 class="text-2xl font-medium mb-8 self-start">Sign in</h1>
