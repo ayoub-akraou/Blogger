@@ -4,6 +4,7 @@ import SearchBar from "../../UI/SearchBar.jsx";
 import LogoIcon from "../../Icons/Logo.jsx";
 import BurgerMenu from "../../Icons/BurgerMenu.jsx";
 import Menu from "./Menu.jsx";
+import { Link } from "react-router-dom";
 
 export default function Header({ className }) {
   const [isOpened, setIsOpened] = useState(false);
@@ -19,7 +20,14 @@ export default function Header({ className }) {
         <SearchBar className="hidden sm:flex" />
         <Menu isOpened={isOpened} onClick={toggleMenu} />
         <BurgerMenu className="sm:hidden" onClick={toggleMenu} />
+        <ProfileAvatar />
       </nav>
     </header>
   );
+}
+
+function ProfileAvatar(params) {
+  return (
+    <Link to="/profile" className="w-10 h-10 rounded-full" title="Profile"><img src="/images/avatar.png" alt="avatar"/></Link>
+  )
 }
