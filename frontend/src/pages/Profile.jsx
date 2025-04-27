@@ -1,14 +1,23 @@
 import React from "react";
 import Button from "../components/UI/Button/Button";
 
+import { useState } from "react";
+
 export default function Profile({
   classNameName,
-  name = "Ayoub Akraou",
-  email = "Mehrabbozorgi.business@gmail.com",
-  password = "password123",
+  name: initialName = "Ayoub Akraou",
+  email: initialEmail = "Mehrabbozorgi.business@gmail.com",
+  password: initialPassword = "password123",
   image = "/images/avatar.png",
-  bio = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu. Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Quisque sagittis orci ut diam condimentum, vel euismod erat placerat. In iaculis arcu eros, eget tempus orci facilisis id.",
+  bio: initialBio = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu. Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Quisque sagittis orci ut diam condimentum, vel euismod erat placerat. In iaculis arcu eros, eget tempus orci facilisis id.",
 }) {
+  const [name, setName] = useState(initialName);
+  const [email, setEmail] = useState(initialEmail);
+  const [password, setPassword] = useState(initialPassword);
+  const [confirmPassword, setConfirmPassword] = useState(initialPassword);
+  const [bio, setBio] = useState(initialBio);
+
+
   return (
     <div className={`${classNameName} max-w-3xl mx-auto px-6 pt-32 pb-20`}>
       {/* <!-- Header with profile image --> */}
@@ -27,39 +36,42 @@ export default function Profile({
       <form>
         {/* <!-- Full Name --> */}
         <div>
-          <label for="fullname" className="block text-lg font-medium mb-2">
+          <label htmlFor="fullname" className="block text-lg font-medium mb-2">
             Full Name
           </label>
           <input
             type="text"
             id="fullname"
             value={name}
+            onChange={e => setName(e.target.value)}
             className="w-full p-3 border border-gray-300 rounded-md"
           />
         </div>
 
         {/* <!-- Email --> */}
         <div className="mb-6">
-          <label for="email" className="block text-lg font-medium mb-2">
+          <label htmlFor="email" className="block text-lg font-medium mb-2">
             Email
           </label>
           <input
             type="email"
             id="email"
             value={email}
+            onChange={e => setEmail(e.target.value)}
             className="w-full p-3 border border-gray-300 rounded-md"
           />
         </div>
 
         {/* <!-- Password --> */}
         <div className="mb-6">
-          <label for="password" className="block text-lg font-medium mb-2">
+          <label htmlFor="password" className="block text-lg font-medium mb-2">
             Password
           </label>
           <input
             type="text"
             id="password"
             value={password}
+            onChange={e => setPassword(e.target.value)}
             className="w-full p-3 border border-gray-300 rounded-md"
           />
         </div>
@@ -67,7 +79,7 @@ export default function Profile({
         {/* <!-- Confirm Password --> */}
         <div className="mb-6">
           <label
-            for="confirmPassword"
+            htmlFor="confirmPassword"
             className="block text-lg font-medium mb-2"
           >
             Confirm-password
@@ -75,22 +87,23 @@ export default function Profile({
           <input
             type="text"
             id="confirmPassword"
-            value={password}
+            value={confirmPassword}
+            onChange={e => setConfirmPassword(e.target.value)}
             className="w-full p-3 border border-gray-300 rounded-md"
           />
         </div>
 
         {/* <!-- Bio --> */}
         <div className="mb-8">
-          <label for="bio" className="block text-lg font-medium mb-2">
+          <label htmlFor="bio" className="block text-lg font-medium mb-2">
             Bio
           </label>
           <textarea
             id="bio"
             className="w-full p-3 border border-gray-300 rounded-md min-h-[200px]"
-          >
-            {bio}
-          </textarea>
+            value={bio}
+            onChange={e => setBio(e.target.value)}
+          />
         </div>
 
         {/* <!-- Buttons --> */}
