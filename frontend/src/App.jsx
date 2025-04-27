@@ -35,10 +35,10 @@ export default function App() {
         </Route>
         <Route path="/admin" element={<DashBoardLayout />}>
           <Route index element={<UsersTable />} />
-          <Route path="/blogs" element={<BlogsTable />} />
-          <Route path="/categories" element={<CategoriesTable />} />
-          <Route path="/tags" element={<TagsTable />} />
-          <Route path="/stats" element={<Stats />} />
+          <Route path="blogs" element={<BlogsTable />} />
+          <Route path="categories" element={<CategoriesTable />} />
+          <Route path="tags" element={<TagsTable />} />
+          <Route path="stats" element={<Stats />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
