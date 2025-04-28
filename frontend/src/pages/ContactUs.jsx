@@ -12,7 +12,7 @@ export default function ContactUs() {
         <h1 className="text-secondary text-4xl md:text-5xl font-bold mb-6">
           Let's Start a Conversation
         </h1>
-        <p className="text-gray max-w-2xl mx-auto">
+        <p className="text-lightGray max-w-2xl mx-auto">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim.
