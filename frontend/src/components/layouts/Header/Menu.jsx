@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import Button from "../../UI/Button/Button.jsx";
 import Logo from "../../UI/Logo/Logo.jsx";
 import Close from "../../Icons/Close.jsx";
+import Avatar from "../../Icons/Avatar.jsx";
+import ControlPanel from "../../Icons/ControlPanel.jsx";
 
 export default function Menu({ className, isOpened, onClick }) {
   return (
@@ -31,6 +33,16 @@ export default function Menu({ className, isOpened, onClick }) {
       </li>
       <li>
         <Link to="/contact-us">Contact us</Link>
+      </li>
+      <li className="-order-2 sm:order-none">
+        <Button className="bg-primary">
+          <Link to="/author-dashboard" className="flex items-center gap-2"><Avatar /> Dashboard</Link>
+        </Button>
+      </li>
+      <li className="-order-2 sm:order-none">
+        <Button className="bg-primary">
+          <Link to="/admin" className="flex items-center gap-2"><ControlPanel /> Dashboard</Link>
+        </Button>
       </li>
       <li className="-order-2 sm:order-none">
         <Button className="bg-primary">
