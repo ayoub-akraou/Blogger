@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 
-export default function Delete({className}) {
+export default function Delete({ className }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -8,11 +8,11 @@ export default function Delete({className}) {
       height="20"
       viewBox="0 0 24 24"
       fill="none"
-      stroke="#ff3b30"
+      // stroke="#ff3b30"
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"
-      className={className + " w-5 h-5"}
+      className={className + " w-5 h-5 stroke-red-400 hover:stroke-red-500"}
     >
       <path d="M3 6h18"></path>
       <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
