@@ -6,6 +6,7 @@ import Archive from "../components/Icons/Archive.jsx";
 import Cheveron from "../components/Icons/Cheveron.jsx";
 import Checked from "../components/Icons/Checked.jsx";
 import Button from "../components/UI/Button/Button.jsx";
+import { Link } from "react-router-dom";
 
 export default function DashBoardLayout() {
   return (
@@ -14,7 +15,7 @@ export default function DashBoardLayout() {
         {/* <!-- En-tête avec recherche --> */}
         <div className="flex justify-between  mb-4">
           <h1 className="text-2xl font-bold">My Blogs:</h1>
-          <Button className="bg-primary">NEW BLOG</Button>
+          <Link to="/blogs-editor"><Button className="bg-primary">NEW BLOG</Button></Link>
         </div>
 
         {/* <!-- Tableau --> */}
