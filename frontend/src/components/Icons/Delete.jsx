@@ -9,9 +9,9 @@ export default function Delete({ className }) {
       viewBox="0 0 24 24"
       fill="none"
       // stroke="#ff3b30"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       className={className + " w-5 h-5 stroke-red-400 hover:stroke-red-500"}
     >
       <path d="M3 6h18"></path>

@@ -13,9 +13,9 @@ export default function Archive({className}) {
       <path
         d="M2.28571 4.85714V16.4286H17.7143V4.85714M7.42857 8.07143H12.5714M1 1V4.85714H19V1H1Z"
         stroke="#FFD050"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
