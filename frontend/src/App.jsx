@@ -11,6 +11,7 @@ import NotFound from "./pages/404.jsx";
 import Profile from "./pages/Profile.jsx";
 // author dashboard
 import AuthorDashboard from "./pages/AuthorDashboard.jsx";
+import BlogsEditor from "./pages/BlogsEditor.jsx";
 // Admin
 import DashBoardLayout from "./components/layouts/DashBoardLayout.jsx";
 import UsersTable from "./pages/UsersTable.jsx";
@@ -32,6 +33,7 @@ export default function App() {
           <Route path="/categories" element={<Categories />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/author-dashboard" element={<AuthorDashboard />} />
+          <Route path="/blogs-editor" element={<BlogsEditor  />} />
         </Route>
         <Route path="/admin" element={<DashBoardLayout />}>
           <Route index element={<UsersTable />} />
