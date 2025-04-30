@@ -17,13 +17,13 @@ class CategoryController extends Controller
         try {
             $categories = Category::all();
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'Categories retrieved successfully',
                 'data' => $categories
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -44,7 +44,7 @@ class CategoryController extends Controller
             $category = Category::create($request->all());
             
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'Category created successfully',
                 'data' => $category
             ], 201);
@@ -63,13 +63,13 @@ class CategoryController extends Controller
     {
         try {
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'Category retrieved    successfully',
                 'data' => $category
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -90,19 +90,19 @@ class CategoryController extends Controller
             $category->update($request->all());
 
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'Category updated successfully',
                 'data' => $category
             ]);
 
         } catch (ValidationException $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->errors()
             ], 422);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -118,7 +118,7 @@ class CategoryController extends Controller
             return response()->json(null, 204);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }

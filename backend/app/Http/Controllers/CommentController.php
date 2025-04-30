@@ -16,10 +16,13 @@ class CommentController extends Controller
     {
         try {
             $comments = Comment::all();
-            return response()->json(['status' => 'success', 'data' => $comments]);
+            return response()->json([
+                'success' => true,
+                'data' => $comments
+            ]);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -40,18 +43,18 @@ class CommentController extends Controller
             $comment = Comment::create($validated);
 
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'Comment created successfully',
                 'data' => $comment
             ]);
         } catch (ValidationException $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->errors()
             ], 422);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -64,12 +67,12 @@ class CommentController extends Controller
     {
         try {
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'data' => $comment
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -90,18 +93,18 @@ class CommentController extends Controller
             $comment->update($validated);
 
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'Comment updated successfully',
                 'data' => $comment
             ]);
         } catch (ValidationException $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->errors()
             ], 422);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -117,7 +120,7 @@ class CommentController extends Controller
             return response()->json(null, 204);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }

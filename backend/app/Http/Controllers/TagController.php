@@ -17,13 +17,13 @@ class TagController extends Controller
         try {
             $tags = Tag::all();
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'Tags retrieved successfully',
                 'data' => $tags
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -43,18 +43,18 @@ class TagController extends Controller
             $tag = Tag::create($validated);
 
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'Tag created successfully',
                 'data' => $tag
             ]);
         } catch (ValidationException $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->errors()
             ], 422);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -67,12 +67,12 @@ class TagController extends Controller
     {
         try {
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'tag' => $tag
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage(),
             ]);
         }
@@ -92,18 +92,18 @@ class TagController extends Controller
             $tag->update($validated);
 
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'Tag updated successfully',
                 'data' => $tag
             ]);
         } catch (ValidationException $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->errors()
             ], 422);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -119,7 +119,7 @@ class TagController extends Controller
             return response()->json(null, 204);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -137,18 +137,18 @@ class TagController extends Controller
             $tags = Tag::createMultiple($validated['tags']);
 
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'Tags created successfully',
                 'data' => $tags
             ]);
         } catch (ValidationException $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->errors()
             ], 422);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }

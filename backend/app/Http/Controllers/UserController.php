@@ -88,19 +88,19 @@ class UserController extends Controller
             $user->update($data);
 
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'User updated successfully',
-                'data' => $user
+                'user' => $user
             ], 200);
         } catch (ValidationException $e) {
             return response()->json([
-                'status' => 'error',
-                'message' => $e->errors()
+                'success' => false,
+                'errors' => $e->errors()
             ], 422);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
-                'message' => $e->getMessage()
+                'success' => false,
+                'errors' => $e->getMessage()
             ], 500);
         }
     }
@@ -115,8 +115,8 @@ class UserController extends Controller
             return response()->json(null, 204);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
-                'message' => $e->getMessage()
+                'success' => false,
+                'errors' => $e->getMessage()
             ], 500);
         }
     }
@@ -128,12 +128,12 @@ class UserController extends Controller
     {
         try {
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'data' => User::count()
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -150,12 +150,12 @@ class UserController extends Controller
             })->count();
 
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'data' => $count
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -176,13 +176,13 @@ class UserController extends Controller
 
             $authUser->follow($author);
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'Author followed successfully',
                 'following_count' => $authUser->following()->count(),
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -203,13 +203,13 @@ class UserController extends Controller
 
             $authUser->unfollow($author);
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'Author unfollowed successfully',
                 'following_count' => $authUser->following()->count()
             ]);
         } catch (\Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }

@@ -48,12 +48,12 @@ class BlogController extends Controller
             return response()->json(['status' => 'success', 'message' => 'Blog created successfully', 'data' => $blog]);
         } catch (ValidationException $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->errors()
             ], 422);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -68,7 +68,7 @@ class BlogController extends Controller
             return response()->json(['status' => 'success', 'data' => $blog]);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -95,12 +95,12 @@ class BlogController extends Controller
             return response()->json(['status' => 'success', 'message' => 'Blog updated successfully', 'data' => $blog]);
         } catch (ValidationException $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->errors()
             ], 422);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -116,7 +116,7 @@ class BlogController extends Controller
             return response()->json(null, 204);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -128,6 +128,7 @@ class BlogController extends Controller
 
         if (!$query) {
             return response()->json([
+                'success' => false,
                 'message' => 'Paramètre "query" manquant.',
             ], 400);
         }
@@ -135,7 +136,7 @@ class BlogController extends Controller
         $blogs = Blog::search($query);
 
         return response()->json([
-            'status' => 'success',
+            'success' => true,
             'request' => $request->all(),
             'data' => $blogs,
         ]);
@@ -146,12 +147,12 @@ class BlogController extends Controller
         try {
             $blog->addTag($tag);
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'Tag ajouté avec succès'
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -162,12 +163,12 @@ class BlogController extends Controller
         try {
             $blog->removeTag($tag);
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'Tag supprimé avec succès'
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -178,12 +179,12 @@ class BlogController extends Controller
         try {
             $blog->publish();
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'Blog publié avec succès'
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -194,12 +195,12 @@ class BlogController extends Controller
         try {
             $blog->unpublish();
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'Blog non publié'
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -211,14 +212,14 @@ class BlogController extends Controller
         try {
             $blog->toggleLike($user);
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'l\'action terminéé avec succès',
                 'likes' => $blog->likes,
                 'dislikes' => $blog->dislikes,
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -230,14 +231,14 @@ class BlogController extends Controller
         try {
             $blog->toggleDislike($user);
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'l\'action terminéé avec succès',
                 'likes' => $blog->likes,
                 'dislikes' => $blog->dislikes
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage(),
             ], 500);
         }
@@ -248,13 +249,13 @@ class BlogController extends Controller
         try {
             $blog->increamentViews();
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'l\'action terminéé avec succès',
                 'views' => $blog->views
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
