@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -23,12 +24,13 @@ class AuthController extends Controller
             $user->register($validatedData);
 
             $token = $user->createToken('authToken')->plainTextToken;
-
             return response()->json([
                 'success' => true,
                 'message' => 'Utilisateur inscrit avec succès',
                 'user' => $user,
+                'blogs' => $user->blogs,
                 'token' => $token,
+                'categories' => Category::all()
             ], 201);
         } catch (ValidationException $e) {
             return response()->json([
@@ -67,7 +69,9 @@ class AuthController extends Controller
                 'success' => true,
                 'message' => 'Connexion réussie',
                 'user' => $result['user'],
+                'blogs' => $result['user']->blogs,
                 'token' => $result['token'],
+                'categories' => Category::all()
             ]);
         } catch (ValidationException $e) {
             return response()->json([
