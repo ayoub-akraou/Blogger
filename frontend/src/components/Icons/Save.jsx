@@ -1,8 +1,9 @@
 import React from 'react';
 
-export default function Save({ className = '' }) {
+export default function Save({ className = "", onClick }) {
   return (
     <svg
+      onClick={onClick}
       xmlns="http://www.w3.org/2000/svg"
       className={className + " w-6 h-6"}
       fill="none"

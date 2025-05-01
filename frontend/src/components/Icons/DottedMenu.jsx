@@ -1,12 +1,13 @@
 import React from 'react'
 
-export default function DottedMenu({className}) {
+export default function DottedMenu({ className, onClick }) {
   return (
     <svg
+      onClick={onClick}
       viewBox="0 0 16 16"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={className + ' w-5 h-5'}
+      className={className + " w-5 h-5"}
     >
       <path
         d="M8 12C9.10457 12 10 12.8954 10 14C10 15.1046 9.10457 16 8 16C6.89543 16 6 15.1046 6 14C6 12.8954 6.89543 12 8 12Z"

@@ -1,9 +1,10 @@
 import React from "react";
 
-export default function Cheveron({ className, orientation = "right" }) {
+export default function Cheveron({ className, onClick, orientation = "right" }) {
   if (orientation === "right")
     return (
       <svg
+        onClick={onClick}
         xmlns="http://www.w3.org/2000/svg"
         className={`h-5 w-5 ${className}`}
         viewBox="0 0 20 20"
@@ -20,6 +21,7 @@ export default function Cheveron({ className, orientation = "right" }) {
   if (orientation === "left")
     return (
       <svg
+        onClick={onClick}
         xmlns="http://www.w3.org/2000/svg"
         className="h-5 w-5"
         viewBox="0 0 20 20"

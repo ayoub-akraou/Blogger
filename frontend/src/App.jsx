@@ -20,7 +20,6 @@ import CategoriesTable from "./pages/CategoriesTable.jsx";
 import TagsTable from "./pages/TagsTable.jsx";
 import Stats from "./pages/stats.jsx";
 
-
 export default function App() {
   return (
     <Router>

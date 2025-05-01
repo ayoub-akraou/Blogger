@@ -1,8 +1,10 @@
 import React from 'react'
 
-export default function Suspend({className}) {
+export default function Suspend({ className, onClick }) {
   return (
-    <svg className={className + " h-5 w-5 text-gray-400 hover:text-gray-600"}
+    <svg
+      onClick={onClick}
+      className={className + " h-5 w-5 text-gray-400 hover:text-gray-600"}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"

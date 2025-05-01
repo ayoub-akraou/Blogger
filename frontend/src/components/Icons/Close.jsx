@@ -1,8 +1,9 @@
 import React from 'react'
 
-export default function Close({className}) {
+export default function Close({className, onClick}) {
   return (
     <svg
+      onClick={onClick}
       xmlns="http://www.w3.org/2000/svg"
       width="22px"
       height="22px"

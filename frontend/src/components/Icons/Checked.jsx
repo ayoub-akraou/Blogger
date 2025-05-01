@@ -1,8 +1,9 @@
 import React from 'react'
 
-export default function Checked({className}) {
+export default function Checked({ className, onClick }) {
   return (
     <svg
+      onClick={onClick}
       width="20"
       height="16"
       viewBox="0 0 20 16"

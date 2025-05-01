@@ -1,8 +1,9 @@
 import React from "react";
 
-export default function Avatar({ className }) {
+export default function Avatar({ className, onClick }) {
   return (
     <svg
+      onClick={onClick}
       fill="#000000"
       viewBox="0 0 512 512"
       id="_x30_1"
