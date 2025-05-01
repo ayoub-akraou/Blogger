@@ -113,7 +113,10 @@ class BlogController extends Controller
     {
         try {
             $blog->delete();
-            return response()->json(null, 204);
+            return response()->json([
+                'success' => true,
+                'message' => 'Blog deleted successfully',
+            ]);
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,

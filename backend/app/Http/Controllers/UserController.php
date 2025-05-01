@@ -112,7 +112,10 @@ class UserController extends Controller
     {
         try {
             $user->delete();
-            return response()->json(null, 204);
+            return response()->json([
+                'success' => true,
+                'message' => 'User deleted successfully'
+            ]);
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,

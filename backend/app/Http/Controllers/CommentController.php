@@ -117,7 +117,10 @@ class CommentController extends Controller
     {
         try {
             $comment->delete();
-            return response()->json(null, 204);
+            return response()->json([
+                'success' => true,
+                'message' => 'Comment deleted successfully'
+            ]);
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,

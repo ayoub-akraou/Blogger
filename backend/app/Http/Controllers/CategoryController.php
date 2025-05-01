@@ -115,7 +115,10 @@ class CategoryController extends Controller
     {
         try{
             $category->delete();
-            return response()->json(null, 204);
+            return response()->json([
+                'success' => true,
+                'message' => 'Category deleted successfully'
+            ]);
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
