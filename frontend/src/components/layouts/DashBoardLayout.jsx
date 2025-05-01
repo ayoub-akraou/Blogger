@@ -16,7 +16,7 @@ export default function DashBoardLayout({ children }) {
   return (
     <html lang="en" className="sm:text-[10px] md:text-[13px] lg:text-[16px]">
       <head>
-        <meta charset="UTF-8" />
+        <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Blogger Admin Dashboard</title>
       </head>
