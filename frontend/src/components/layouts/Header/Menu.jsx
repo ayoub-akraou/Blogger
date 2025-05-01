@@ -1,12 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Button from "../../UI/Button/Button.jsx";
+import LogoutButton from "../../UI/Button/LogoutButton.jsx";
 import Logo from "../../UI/Logo/Logo.jsx";
 import Close from "../../Icons/Close.jsx";
 import Avatar from "../../Icons/Avatar.jsx";
 import ControlPanel from "../../Icons/ControlPanel.jsx";
 
 export default function Menu({ className, isOpened, onClick }) {
+  const isAuthenticated = localStorage.getItem("token") !== null;
+  const isAdmin = localStorage.getItem("user-role") === "admin";
+  const isAuthor = localStorage.getItem("user-role") === "author";
+
   return (
     <ul
       className={`${className} ${
@@ -17,7 +22,7 @@ export default function Menu({ className, isOpened, onClick }) {
         <Close />
       </li>
       <li className="-order-3 sm:hidden">
-          <Logo />
+        <Logo />
       </li>
       <li>
         <Link to="/">Home</Link>
@@ -34,26 +39,44 @@ export default function Menu({ className, isOpened, onClick }) {
       <li>
         <Link to="/contact-us">Contact us</Link>
       </li>
-      <li className="-order-2 sm:order-none">
-        <Button className="bg-primary">
-          <Link to="/author-dashboard" className="flex items-center gap-2"><Avatar /> Dashboard</Link>
-        </Button>
-      </li>
-      <li className="-order-2 sm:order-none">
-        <Button className="bg-primary">
-          <Link to="/admin" className="flex items-center gap-2"><ControlPanel /> Dashboard</Link>
-        </Button>
-      </li>
-      <li className="-order-2 sm:order-none">
-        <Button className="bg-primary">
-          <Link to="/login">LOGIN</Link>
-        </Button>
-      </li>
-      <li className="-order-1 sm:order-none">
-        <Button className="bg-secondary !text-white sm:!text-secondary sm:bg-white">
-          <Link to="/signup">SIGN UP</Link>
-        </Button>
-      </li>
+      {isAuthor && (
+        <li className="-order-2 sm:order-none">
+          <Button className="bg-primary">
+            <Link to="/author-dashboard" className="flex items-center gap-2">
+              <Avatar /> Dashboard
+            </Link>
+          </Button>
+        </li>
+      )}
+      {isAdmin && (
+        <li className="-order-2 sm:order-none">
+          <Button className="bg-primary">
+            <Link to="/admin" className="flex items-center gap-2">
+              <ControlPanel /> Dashboard
+            </Link>
+          </Button>
+        </li>
+      )}
+      {!isAuthenticated && (
+        <>
+          <li className="-order-2 sm:order-none">
+            <Button className="bg-primary">
+              <Link to="/login">LOGIN</Link>
+            </Button>
+          </li>
+          <li className="-order-1 sm:order-none">
+            <Button className="bg-secondary !text-white sm:!text-secondary sm:bg-white">
+              <Link to="/signup">SIGN UP</Link>
+            </Button>
+          </li>
+        </>
+      )}
+
+      {isAuthenticated && (
+        <li className="-order-1 sm:order-none">
+          <LogoutButton />
+        </li>
+      )}
     </ul>
   );
 }
