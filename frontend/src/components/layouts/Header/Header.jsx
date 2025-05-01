@@ -8,7 +8,7 @@ import ProfileAvatar from "../../UI/ProfileAvatar.jsx";
 
 export default function Header({ className }) {
   const [isOpened, setIsOpened] = useState(false);
-
+  const isAuthenticated = localStorage.getItem('token') !== null;
   function toggleMenu() {
     setIsOpened(prev => !prev);
   }
@@ -19,9 +19,8 @@ export default function Header({ className }) {
         <LogoIcon className="sm:hidden"></LogoIcon>
         <SearchBar className="hidden sm:flex" />
         <Menu isOpened={isOpened} onClick={toggleMenu} />
-        <ProfileAvatar className="ml-auto" />
-        <BurgerMenu className="sm:hidden" onClick={toggleMenu} />
-           
+        {isAuthenticated && <ProfileAvatar className="ml-auto" />}
+        <BurgerMenu className="sm:hidden" onClick={toggleMenu} />   
       </nav>
     </header>
   );
