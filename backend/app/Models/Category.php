@@ -13,6 +13,7 @@ class Category extends Model
         'name',
         'description',
         'image',
+        'color'
     ];
 
     public function blogs()
