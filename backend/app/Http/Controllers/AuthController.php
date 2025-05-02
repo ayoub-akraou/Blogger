@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\Category;
+use App\Models\Tag;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -22,15 +24,20 @@ class AuthController extends Controller
 
             $user = new User();
             $user->register($validatedData);
+            
+            $blogs = [];
+            if ($user->type === 'author') $blogs = Blog::where('author_id', $user->id)->with('tags', 'comments', 'author')->get();
+            if ($user->type === 'admin') $blogs = Blog::with('tags', 'comments', 'author')->get();
 
             $token = $user->createToken('authToken')->plainTextToken;
             return response()->json([
                 'success' => true,
                 'message' => 'Utilisateur inscrit avec succès',
                 'user' => $user,
-                'blogs' => $user->blogs,
+                'blogs' => $blogs,
                 'token' => $token,
-                'categories' => Category::all()
+                'categories' => Category::all()->with('blogs.author')->get(),
+                'tags' => Tag::all(),
             ], 201);
         } catch (ValidationException $e) {
             return response()->json([
@@ -64,14 +71,16 @@ class AuthController extends Controller
                     'message' => 'Identifiants incorrects'
                 ], 401);
             }
-
+            if($result['user']->type === 'author') $blogs = Blog::where('author_id', $result['user']->id)->with('tags', 'comments', 'author')->get();
+            if($result['user']->type === 'admin') $blogs = Blog::with('tags', 'comments', 'author')->get();
             return response()->json([
                 'success' => true,
                 'message' => 'Connexion réussie',
                 'user' => $result['user'],
-                'blogs' => $result['user']->blogs,
+                'blogs' => $blogs,
                 'token' => $result['token'],
-                'categories' => Category::all()
+                'categories' => Category::with('blogs.author')->get(),
+                'tags' => Tag::all(),
             ]);
         } catch (ValidationException $e) {
             return response()->json([
