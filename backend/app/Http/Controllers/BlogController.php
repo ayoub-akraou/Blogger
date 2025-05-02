@@ -34,22 +34,29 @@ class BlogController extends Controller
     {
         try {
             $request->validate([
-                'user_id' => 'required|exists:users,id',
+                'author_id' => 'required|exists:users,id',
                 'category_id' => 'nullable|exists:categories,id',
                 'title' => 'required|string|max:255',
                 'content' => 'required|string',
-                'image' => 'required|string|max:255',
-                'views' => 'required|numeric|min:0',
-                'likes' => 'required|numeric|min:0',
-                'status' => 'required|in:pending,published,archived'
+                'image' => 'required|string',
+                // 'views' => 'required|numeric|min:0',
+                // 'likes' => 'required|numeric|min:0',
+                // 'dislikes' => 'required|numeric|min:0',
+                // 'status' => 'required|in:active,suspended',
+                'tags' => 'sometimes|required|array'
             ]);
 
-            $blog = Blog::create($request->all());
-            return response()->json(['status' => 'success', 'message' => 'Blog created successfully', 'data' => $blog]);
+            $blog = Blog::create($request->except('tags'));
+
+            if (isset($request->tags)) {
+                $blog->tags()->sync($request->tags);
+            }
+
+            return response()->json(['success' => true, 'message' => 'Blog created successfully', 'blog' => $blog]);
         } catch (ValidationException $e) {
             return response()->json([
                 'success' => false,
-                'message' => $e->errors()
+                'errors' => $e->errors()
             ], 422);
         } catch (Exception $e) {
             return response()->json([
@@ -81,22 +88,30 @@ class BlogController extends Controller
     {
         try {
             $request->validate([
-                'user_id' => 'sometimes|required|exists:users,id',
+                // 'author_id' => 'sometimes|required|exists:users,id',
                 'category_id' => 'sometimes|nullable|exists:categories,id',
                 'title' => 'sometimes|required|string|max:255',
                 'content' => 'sometimes|required|string',
-                'image' => 'sometimes|required|string|max:255',
+                'image' => 'sometimes|required|string',
                 'views' => 'sometimes|required|numeric|min:0',
                 'likes' => 'sometimes|required|numeric|min:0',
-                'status' => 'sometimes|required|in:pending,published,archived'
+                'dislikes' => 'sometimes|required|numeric|min:0',
+                'status' => 'sometimes|required|in:active,suspended',
+                'tags' => 'sometimes|required|array'
             ]);
 
-            $blog->update($request->all());
-            return response()->json(['status' => 'success', 'message' => 'Blog updated successfully', 'data' => $blog]);
+            $blog->update($request->except('tags'));
+            
+            if (isset($request->tags)) {
+                $blog->tags()->sync($request->tags);
+            }
+            $blog->tags;
+            $blog->comments;
+            return response()->json(['success' => true, 'message' => 'Blog updated successfully', 'blog' => $blog]);
         } catch (ValidationException $e) {
             return response()->json([
                 'success' => false,
-                'message' => $e->errors()
+                'errors' => $e->errors()
             ], 422);
         } catch (Exception $e) {
             return response()->json([
