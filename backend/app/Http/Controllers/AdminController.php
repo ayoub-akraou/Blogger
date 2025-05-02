@@ -10,64 +10,24 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Admin $admin)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Admin $admin)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Admin $admin)
-    {
-        //
-    }
-
     public function approveAuthor(User $user)
     {
         try {
             $user = Admin::approveAuthor($user);
 
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'Author approved successfully',
-                'data' => $user
+                'user' => $user
             ]);
         } catch (\DomainException $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 400);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -78,18 +38,18 @@ class AdminController extends Controller
         try {
             $user = Admin::rejectAuthor($user);
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'Author rejected successfully',
-                'data' => $user
+                'user' => $user
             ]);
         } catch (\DomainException $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 400);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -99,9 +59,9 @@ class AdminController extends Controller
         try {
             $user = Admin::activateUser($user);
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'User activated successfully',
-                'data' => $user
+                'user' => $user
             ]);
         } catch (\DomainException $e) {
             return response()->json([
@@ -120,18 +80,18 @@ class AdminController extends Controller
         try {
             $user = Admin::suspendUser($user);
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'User suspended successfully',
-                'data' => $user
+                'user' => $user
             ]);
         } catch (\DomainException $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 400);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -142,18 +102,18 @@ class AdminController extends Controller
         try {
             $blog = Admin::activateBlog($blog);
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'Blog activated successfully',
-                'data' => $blog
+                'blog' => $blog
             ]);
         } catch (\DomainException $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 400);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -164,9 +124,9 @@ class AdminController extends Controller
         try {
             $blog = Admin::suspendBlog($blog);
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'Blog suspended successfully',
-                'data' => $blog
+                'blog' => $blog
             ]);
         } catch (\DomainException $e) {
             return response()->json([
@@ -184,12 +144,12 @@ class AdminController extends Controller
     {
         try {
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'data' => Admin::getGlobalStatistics()
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -200,18 +160,18 @@ class AdminController extends Controller
         try {
             $user = Admin::deleteUser($user);
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'User deleted successfully',
-                'data' => $user
+                'user' => $user
             ]);
         } catch (\DomainException $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 400);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -222,18 +182,18 @@ class AdminController extends Controller
         try {
             $blog = Admin::deleteBlog($blog);
             return response()->json([
-                'status' => 'success',
+                'success' => true,
                 'message' => 'Blog deleted successfully',
-                'data' => $blog
+                'blog' => $blog
             ]);
         } catch (\DomainException $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 400);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
