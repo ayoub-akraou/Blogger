@@ -12,17 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('blogs', function (Blueprint $table) {
-            $table->id(); 
+            $table->id();
             $table->foreignId('author_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('cascade');
-            $table->string('title'); 
-            $table->text('content'); 
-            $table->string('image')->nullable(); 
-            $table->integer('views')->default(0)->unsigned(); 
-            $table->integer('likes')->default(0)->unsigned(); 
-            $table->integer('dislikes')->default(0)->unsigned(); 
-            $table->enum('status', ["active", "suspended"])->default('active'); 
-            $table->timestamps(); 
+            $table->string('title');
+            $table->longText('content');
+            $table->longText('image')->nullable();
+            $table->integer('views')->default(0)->unsigned();
+            $table->integer('likes')->default(0)->unsigned();
+            $table->integer('dislikes')->default(0)->unsigned();
+            $table->enum('status', ["active", "suspended"])->default('active');
+            $table->timestamps();
         });
     }
 
