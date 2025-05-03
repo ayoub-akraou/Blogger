@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class CategoryController extends Controller
@@ -15,7 +16,16 @@ class CategoryController extends Controller
     public function index()
     {
         try {
-            $categories = Category::all();
+            $categories = Category::with(['blogs.author'])
+                ->withCount([
+                    'blogs as views' => function ($query) {
+                        $query->select(DB::raw('COALESCE(SUM(views), 0)'));
+                    },
+                    'blogs as likes' => function ($query) {
+                        $query->select(DB::raw('COALESCE(SUM(likes), 0)'));
+                    }
+                ])->get();
+
             return response()->json([
                 'success' => true,
                 'message' => 'Categories retrieved successfully',
@@ -42,13 +52,12 @@ class CategoryController extends Controller
             ]);
 
             $category = Category::create($request->all());
-            
+
             return response()->json([
                 'success' => true,
                 'message' => 'Category created successfully',
                 'data' => $category
             ], 201);
-
         } catch (ValidationException $e) {
             return response()->json(['error' => $e->errors()], 422);
         } catch (Exception $e) {
@@ -94,7 +103,6 @@ class CategoryController extends Controller
                 'message' => 'Category updated successfully',
                 'data' => $category
             ]);
-
         } catch (ValidationException $e) {
             return response()->json([
                 'success' => false,
@@ -113,7 +121,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        try{
+        try {
             $category->delete();
             return response()->json([
                 'success' => true,
