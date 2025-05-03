@@ -8,6 +8,7 @@ use App\Models\Tag;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
@@ -24,10 +25,32 @@ class AuthController extends Controller
 
             $user = new User();
             $user->register($validatedData);
-            
+
             $blogs = [];
-            if ($user->type === 'author') $blogs = Blog::where('author_id', $user->id)->with('tags', 'comments', 'author')->get();
-            if ($user->type === 'admin') $blogs = Blog::with('tags', 'comments', 'author')->get();
+            $tags = Tag::all();
+            if ($user->type === 'author') {
+                $blogs = Blog::where('author_id', $user->id)->with('tags', 'comments', 'author', 'category')->get();
+                $categories = Category::with('blogs.author')->get();
+            }
+
+            if ($user->type === 'admin') {
+                $blogs = Blog::with('tags', 'comments', 'author', 'category')->get();
+                $categories = Category::with(['blogs.author'])
+                    ->withCount([
+                        'blogs as views' => function ($query) {
+                            $query->select(DB::raw('COALESCE(SUM(views), 0)'));
+                        },
+                        'blogs as likes' => function ($query) {
+                            $query->select(DB::raw('COALESCE(SUM(likes), 0)'));
+                        }
+                    ])->get();
+                $tags = Tag::withCount([
+                    'blogs as blogs',
+                    'blogs as views' => function ($query) {
+                        $query->select(DB::raw('COALESCE(SUM(views), 0)'));
+                    }
+                ])->get();
+            }
 
             $token = $user->createToken('authToken')->plainTextToken;
             return response()->json([
@@ -36,8 +59,8 @@ class AuthController extends Controller
                 'user' => $user,
                 'blogs' => $blogs,
                 'token' => $token,
-                'categories' => Category::all()->with('blogs.author')->get(),
-                'tags' => Tag::all(),
+                'categories' => $categories,
+                'tags' => $tags,
             ], 201);
         } catch (ValidationException $e) {
             return response()->json([
@@ -71,16 +94,42 @@ class AuthController extends Controller
                     'message' => 'Identifiants incorrects'
                 ], 401);
             }
-            if($result['user']->type === 'author') $blogs = Blog::where('author_id', $result['user']->id)->with('tags', 'comments', 'author')->get();
-            if($result['user']->type === 'admin') $blogs = Blog::with('tags', 'comments', 'author')->get();
+
+            $tags = Tag::all();
+            if ($result['user']->type === 'author') {
+                $blogs = Blog::where('author_id', $result['user']->id)->with('tags', 'comments', 'author', 'category')->get();
+                $categories = Category::with('blogs.author')->get();
+            }
+
+            if ($result['user']->type === 'admin') {
+                $blogs = Blog::with('tags', 'comments', 'author', 'category')->get();
+                $categories = Category::with(['blogs.author'])
+                    ->withCount([
+                        'blogs as views' => function ($query) {
+                            $query->select(DB::raw('COALESCE(SUM(views), 0)'));
+                        },
+                        'blogs as likes' => function ($query) {
+                            $query->select(DB::raw('COALESCE(SUM(likes), 0)'));
+                        }
+                    ])->get();
+                $tags = Tag::withCount([
+                    // je veux le nombre total de blogs pas les blogs
+                    'blogs as blogs',
+                    'blogs as views' => function ($query) {
+                        $query->select(DB::raw('COALESCE(SUM(views), 0)'));
+                    }
+                ])->get();
+            }
+
+
             return response()->json([
                 'success' => true,
                 'message' => 'Connexion réussie',
                 'user' => $result['user'],
                 'blogs' => $blogs,
                 'token' => $result['token'],
-                'categories' => Category::with('blogs.author')->get(),
-                'tags' => Tag::all(),
+                'categories' => $categories,
+                'tags' => $tags,
             ]);
         } catch (ValidationException $e) {
             return response()->json([
