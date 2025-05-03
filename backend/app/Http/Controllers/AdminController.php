@@ -145,7 +145,7 @@ class AdminController extends Controller
         try {
             return response()->json([
                 'success' => true,
-                'data' => Admin::getGlobalStatistics()
+                'stats' => Admin::getGlobalStatistics()
             ]);
         } catch (Exception $e) {
             return response()->json([
