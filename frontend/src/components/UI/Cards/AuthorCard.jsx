@@ -1,12 +1,24 @@
-import React from 'react'
+import React from "react";
 
-export default function AuthorCard({className, style, image = "/images/avatar.png", name = "Floyd Miles", socials}) {
+export default function AuthorCard({
+  className,
+  style,
+  image = "/images/avatar.png",
+  name = "Floyd Miles",
+  socials,
+  id,
+}) {
   return (
     <div
+      id={id}
       className={`min-w-[160px] rounded-lg shadow-md flex-1 bg-yellow-50 p-6 flex flex-col items-center text-center ${className}`}
       style={style}
     >
-      <img src={image} alt={name} className="w-36 h-36 rounded-full mb-6 object-contain" />
+      <img
+        src={image}
+        alt={name}
+        className="w-36 h-36 rounded-full mb-6 object-contain"
+      />
       <h3 className="font-semibold mb-2">{name}</h3>
       <p className="text-sm text-gray-500 mb-4">Content Writer</p>
       <div className="flex space-x-3">
