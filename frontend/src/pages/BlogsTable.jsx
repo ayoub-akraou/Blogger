@@ -8,6 +8,10 @@ import Checked from "../components/Icons/Checked.jsx";
 import Button from "../components/UI/Button/Button.jsx";
 
 export default function BlogsTable() {
+  const role = localStorage.getItem("user-role");
+  const [blogs, setBlogs] = useState(
+    JSON.parse(localStorage.getItem("blogs")) || []
+  );
   return (
     <div className="px-4 md:px-6 md:py-2">
       <div className="max-w-4xl mx-auto">
@@ -48,16 +52,20 @@ export default function BlogsTable() {
               </thead>
               <tbody id="blog-table-body">
                 {/* <!-- Les lignes du tableau seront générées dynamiquement par JavaScript --> */}
-                <Row status="suspended" />
-                <Row />
-                <Row />
-                <Row />
-                <Row />
-                <Row />
-                <Row />
-                <Row />
-                <Row />
-                <Row />
+                {blogs.map((blog, index) => (
+                  <Row
+                    key={index}
+                    id={blog.id}
+                    title={blog.title}
+                    category={blog.category.name}
+                    status={blog.status}
+                    views={blog.views}
+                    likes={blog.likes}
+                    handleActivateBlog={handleActivateBlog}
+                    handleSuspendBlog={handleSuspendBlog}
+                    handleDelete={handleDelete}
+                  />
+                ))}
               </tbody>
             </table>
           </div>
