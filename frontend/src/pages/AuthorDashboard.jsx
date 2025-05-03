@@ -7,7 +7,7 @@ import Cheveron from "../components/Icons/Cheveron.jsx";
 import Checked from "../components/Icons/Checked.jsx";
 import Button from "../components/UI/Button/Button.jsx";
 import Alert from "../components/UI/Alerts/Alert";
-import apiFetch from "../api/api.js"
+import apiFetch from "../api/api.js";
 import { Link } from "react-router-dom";
 
 export default function AuthorDashboard() {
@@ -20,7 +20,7 @@ export default function AuthorDashboard() {
 
   function handleDelete(e) {
     e.preventDefault();
-    const id = e.target.closest('.parent').id;
+    const id = e.target.closest(".parent").id;
     apiFetch(`blogs/${id}`, "DELETE", null, setError)
       .then((data) => {
         console.log(data);
@@ -31,7 +31,42 @@ export default function AuthorDashboard() {
       })
       .catch((err) => {
         console.log(err.message);
-        
+
+        setError(err.message);
+        setMessage(null);
+      });
+  }
+
+  function handleActivateBlog(e) {
+    const id = e.target.closest(".parent").id;
+    apiFetch(`blogs/${id}/publish`, "PATCH", null, setError)
+      .then((data) => {
+        console.log(data);
+        setMessage(data.message);
+        setError(null);
+        setBlogs(blogs.map((blog) => blog.id === Number(id) ? {...blog, status: "active"} : blog));
+        localStorage.setItem("blogs", JSON.stringify(blogs));
+      })
+      .catch((err) => {
+        console.log(err.message);
+
+        setError(err.message);
+        setMessage(null);
+      });
+  }
+
+  function handleSuspendBlog(e) {
+    const id = e.target.closest(".parent").id;
+    apiFetch(`blogs/${id}/unpublish`, "PATCH", null, setError)
+      .then((data) => {
+        console.log(data);
+        setMessage(data.message);
+        setError(null);
+        setBlogs(blogs.map((blog) => blog.id === Number(id) ? {...blog, status: "suspended"} : blog));
+        localStorage.setItem("blogs", JSON.stringify(blogs));
+      })
+      .catch((err) => {
+        console.log(err.message);
         setError(err.message);
         setMessage(null);
       });
@@ -102,6 +137,8 @@ export default function AuthorDashboard() {
                     likes={blog.likes}
                     key={blog.id}
                     handleDelete={handleDelete}
+                    handleActivateBlog={handleActivateBlog}
+                    handleSuspendBlog={handleSuspendBlog}
                   />
                 ))}
               </tbody>
@@ -124,7 +161,9 @@ function Row({
   status = "active",
   views = 199,
   likes = 199,
-  handleDelete
+  handleDelete,
+  handleActivateBlog,
+  handleSuspendBlog,
 }) {
   return (
     <tr className={`${className} border-t border-[#d5d5d5] parent`} id={id}>
@@ -149,14 +188,21 @@ function Row({
       <td className="py-2 px-2.5 sm:py-3 sm:px-4 ">
         {/* <DottedMenu className="sm:hidden block mx-auto"/> */}
         <div className="flex justify-center space-x-2">
-          <Eye className="cursor-pointer" />
+          <Link to={`/blog-detail/${id}`}>
+            <Eye className="cursor-pointer" />
+          </Link>
           {status === "suspended" ? (
-            <Checked className="cursor-pointer" />
+            <button onClick={handleActivateBlog}>
+              <Checked className="cursor-pointer" />
+            </button>
           ) : (
-            <Archive className="cursor-pointer" />
+            <button onClick={handleSuspendBlog}>
+              <Archive className="cursor-pointer" />
+            </button>
           )}
-          <Edit />
-
+          <Link to={`/update-blog-editor/${id}`}>
+            <Edit />
+          </Link>
           <Delete onClick={handleDelete} className="cursor-pointer" />
         </div>
       </td>
