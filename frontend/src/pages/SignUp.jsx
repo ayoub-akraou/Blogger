@@ -37,7 +37,10 @@ export default function SignUp() {
           localStorage.setItem("user-role", data.user.type);
           localStorage.setItem("user-id", data.user.id);
           localStorage.setItem("categories", JSON.stringify(data.categories));
-          navigate("/");
+          localStorage.setItem("tags", JSON.stringify(data.tags));
+          if (data.user.type === "admin") navigate("/admin");
+          else if (data.user.type === "author") navigate("/author-dashboard");
+          else navigate("/");
         }
       })
       .catch((err) => console.error(err));
