@@ -127,17 +127,18 @@ class Admin extends User
                 ->take(3)
                 ->get(),
             'top_three_blogs' => Blog::orderBy('likes', 'desc')->take(3)->get(),
-            'category_stats' => Blog::with('category')
+            'categories' => Category::withCount('blogs')
+                ->withSum('blogs', 'views')
                 ->get()
-                ->groupBy('category_id')
-                ->map(function ($blogs) {
-                    $category = $blogs->first()->category;
+                ->map(function ($category) {
+                    $totalBlogs = Blog::count();
                     return [
-                        'category_name' => $category->name,
-                        'total_blogs' => count($blogs),
-                        'percentage' => round((count($blogs) / Blog::count()) * 100, 2)
+                        'name' => $category->name,
+                        'color' => $category->color,
+                        'total_blogs' => $category->blogs_count,
+                        'percentage' => $totalBlogs ? round(($category->blogs_count / $totalBlogs) * 100, 2) : 0
                     ];
-                })->values(),
+                }),
         ];
         return $stats;
     }
