@@ -9,8 +9,8 @@ import { useNavigate } from "react-router-dom";
 export default function Profile({ className, image = "/images/avatar.png" }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("************");
-  const [confirmPassword, setConfirmPassword] = useState("************");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [bio, setBio] = useState("bio...");
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
