@@ -8,8 +8,6 @@ export default function RotateDeviceModal() {
     const checkOrientation = () => {
       const isMobile = window.innerWidth <= 500;
       const isPortrait = window.matchMedia("(orientation: portrait)").matches;
-      console.log(window.innerWidth);
-
       setShowModal(isMobile || isPortrait);
     };
 
