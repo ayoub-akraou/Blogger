@@ -18,7 +18,8 @@ import UsersTable from "./pages/UsersTable.jsx";
 import BlogsTable from "./pages/BlogsTable.jsx";
 import CategoriesTable from "./pages/CategoriesTable.jsx";
 import TagsTable from "./pages/TagsTable.jsx";
-import Stats from "./pages/stats.jsx";
+import Stats from "./pages/Stats.jsx";
+import UpdateBlogsEditor from "./pages/UpdateBlogsEditor.jsx";
 
 export default function App() {
   return (
@@ -33,6 +34,7 @@ export default function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/author-dashboard" element={<AuthorDashboard />} />
           <Route path="/blogs-editor" element={<BlogsEditor  />} />
+          <Route path="/update-blog-editor/:id" element={<UpdateBlogsEditor  />} />
         </Route>
         <Route path="/admin" element={<DashBoardLayout />}>
           <Route index element={<UsersTable />} />
