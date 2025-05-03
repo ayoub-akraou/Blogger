@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { LogOut } from 'lucide-react';
 import apiFetch from '../../../api/api';
 
-export default function LogoutButton() {
+export default function LogoutButton({ className }) {
     const navigate = useNavigate();
 
     function handleLogout() {
@@ -24,8 +24,8 @@ export default function LogoutButton() {
     }
 
   return (
-    <Button onClick={handleLogout} type="button" className="flex gap-2 text-sm bg-secondary !text-white sm:!text-secondary sm:bg-white">
-        Logout <LogOut  className='w-5 h-5'/>
+    <Button onClick={handleLogout} type="button" className={"flex gap-2 text-sm bg-secondary !text-white sm:!text-secondary sm:bg-white " + className}>
+        <span>Logout</span> <LogOut  className='w-5 h-5'/>
     </Button>
   );
 }
