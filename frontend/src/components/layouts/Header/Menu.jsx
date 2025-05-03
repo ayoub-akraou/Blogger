@@ -41,11 +41,11 @@ export default function Menu({ className, isOpened, onClick }) {
       </li>
       {isAuthor && (
         <li className="-order-2 sm:order-none">
-          <Button className="bg-primary">
-            <Link to="/author-dashboard" className="flex items-center gap-2">
+          <Link to="/author-dashboard">
+            <Button className="bg-primary flex items-center gap-2">
               <Avatar /> Dashboard
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </li>
       )}
       {isAdmin && (
@@ -60,14 +60,16 @@ export default function Menu({ className, isOpened, onClick }) {
       {!isAuthenticated && (
         <>
           <li className="-order-2 sm:order-none">
-            <Button className="bg-primary">
-              <Link to="/login">LOGIN</Link>
-            </Button>
+            <Link to="/login">
+              <Button className="bg-primary">LOGIN</Button>
+            </Link>
           </li>
           <li className="-order-1 sm:order-none">
-            <Button className="bg-secondary !text-white sm:!text-secondary sm:bg-white">
-              <Link to="/signup">SIGN UP</Link>
-            </Button>
+            <Link to="/signup">
+              <Button className="bg-secondary !text-white sm:!text-secondary sm:bg-white">
+                SIGN UP
+              </Button>
+            </Link>
           </li>
         </>
       )}
