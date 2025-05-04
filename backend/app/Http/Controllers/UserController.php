@@ -27,7 +27,29 @@ class UserController extends Controller
         }
     }
 
-    public function profile() {
+    function topAuthors($limit)
+    {
+        try {
+            if ($limit) {
+                $authors = Author::withCount('blogs')
+                    ->orderBy('blogs_count', 'desc')
+                    ->take($limit)
+                    ->get();
+            } else $authors = Author::withCount('blogs')
+                ->orderBy('blogs_count', 'desc')
+                ->get();
+
+            return response()->json(['success' => true, 'authors' => $authors]);
+        } catch (Exception $e) {
+            return response()->json([
+                'succes' => 'false',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function profile()
+    {
         try {
             $user = User::profile();
             return response()->json([
