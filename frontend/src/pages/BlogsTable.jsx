@@ -30,7 +30,6 @@ export default function BlogsTable() {
     const id = e.target.closest("tr").id;
     apiFetch(`blogs/${id}`, "DELETE", null, setError)
       .then((data) => {
-        console.log(data);
         setMessage(data.message);
         setError(null);
         const updatedBlogs = blogs.filter((blog) => blog.id !== Number(id));
@@ -38,7 +37,7 @@ export default function BlogsTable() {
         localStorage.setItem("blogs", JSON.stringify(updatedBlogs));
       })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
         setError(err.message);
         setMessage(null);
       });
@@ -48,7 +47,6 @@ export default function BlogsTable() {
     const id = e.target.closest("tr").id;
     apiFetch(`blogs/${id}/publish`, "PATCH", null, setError)
       .then((data) => {
-        console.log(data);
         setMessage(data.message);
         setError(null);
         const updatedBlogs = blogs.map((blog) =>
@@ -58,7 +56,7 @@ export default function BlogsTable() {
         localStorage.setItem("blogs", JSON.stringify(updatedBlogs));
       })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
 
         setError(err.message);
         setMessage(null);
@@ -69,7 +67,6 @@ export default function BlogsTable() {
     const id = e.target.closest("tr").id;
     apiFetch(`blogs/${id}/unpublish`, "PATCH", null, setError)
       .then((data) => {
-        console.log(data);
         setMessage(data.message);
         setError(null);
         const updatedBlogs = blogs.map((blog) =>
@@ -79,7 +76,7 @@ export default function BlogsTable() {
         localStorage.setItem("blogs", JSON.stringify(updatedBlogs));
       })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
         setError(err.message);
         setMessage(null);
       });

@@ -6,11 +6,9 @@ export default function Categories() {
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     apiFetch("categories").then((data) => {
-      setCategories(data.categories)
-      console.log(data.categories);
-      
+      setCategories(data.categories)      
     }).catch((err) => {
-      console.log(err);
+      console.error(err);
     });
   }, []);
   return (

@@ -22,10 +22,9 @@ const totalPages = Math.ceil(blogs.length / blogsPerPage);
     apiFetch("blogs/search?query=" + searchQuery, "GET", null, setError)
       .then((data) => {
         setBlogs(data.blogs);
-        console.log(data.blogs);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   }, [searchQuery]);
 

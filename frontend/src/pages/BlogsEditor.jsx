@@ -75,7 +75,6 @@ export default function BlogsEditor({ initialValue = "" }) {
 
       apiFetch("blogs", "POST", body, setError)
         .then((data) => {
-          console.log(data);
           setMessage(data.message);
           setError(null);
           const blogs = JSON.parse(localStorage.getItem("blogs") || "[]");
@@ -148,7 +147,7 @@ export default function BlogsEditor({ initialValue = "" }) {
                 accept="image/*"
                 className="w-full h-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                 onChange={(e) => {
-                  console.log(e.target.files[0]);
+                  console.error(e.target.files[0]);
 
                   setImage(e.target.files[0]);
                 }}

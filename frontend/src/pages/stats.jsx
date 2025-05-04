@@ -14,7 +14,7 @@ export default function Stats() {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
   const categories = stats?.categories;
-  console.log(categories);
+  console.error(categories);
   
   const topAuthors = stats?.top_three_authors;
   const topBlogs = stats?.top_three_blogs;
@@ -80,7 +80,7 @@ export default function Stats() {
 
   return (
     <>
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         {/* <!-- Stats Cards --> */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-4">
           {/* <!-- Total User --> */}
@@ -151,7 +151,7 @@ export default function Stats() {
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {topAuthors?.map((author) => (
                   <AuthorCard
-                    className="!p-2 [&>img]:w-20 [&>img]:h-20 min-w-[100px]"
+                    className="!p-2 [&>img]:w-20 [&>img]:h-20 min-w-[80px]"
                     key={author.id}
                     image={author.image}
                     name={author.name}

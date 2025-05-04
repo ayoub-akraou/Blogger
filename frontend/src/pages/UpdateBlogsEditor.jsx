@@ -68,22 +68,18 @@ export default function UpdateBlogsEditor() {
      tags: selectedTags,
    };
  
-   console.log("image exist:", Boolean(image));
  
    if (image) {
      const reader = new FileReader();
      reader.readAsDataURL(image);
      reader.onload = (e) => {
        const base64Image = e.target.result;
-       console.log("image base64:", base64Image);
        
        // Assigner l'image et faire l'appel API dans le callback
        body.image = base64Image;
-       console.log("body with image", body);
        
        apiFetch(`blogs/${blog.id}`, "PUT", body, setError)
          .then((data) => {
-           console.log("data", "\n", data);
            setMessage(data.message);
            setError(null);
            localStorage.setItem(
@@ -104,7 +100,6 @@ export default function UpdateBlogsEditor() {
      // Appel API directement si pas d'image
      apiFetch(`blogs/${blog.id}`, "PUT", body, setError)
        .then((data) => {
-         console.log("data", "\n", data);
          setMessage(data.message);
          setError(null);
          localStorage.setItem(

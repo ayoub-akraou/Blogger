@@ -16,7 +16,7 @@ export default function Home() {
         setRecentlyPostedBlogs(data.blogs);
       })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
       });
   }, []);
 
@@ -26,7 +26,7 @@ export default function Home() {
         setPopularBlogs(data.blogs);
       })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
       });
   }, []);
   
@@ -36,18 +36,17 @@ export default function Home() {
         setTopAuthors(data.authors);
       })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
       });
   }, []);
 
   useEffect(() => {
     apiFetch("categories/last", "GET", null)
       .then((data) => {
-        console.log(data.category);
         setCategory(data.category);
       })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
       });
   }, []);
 

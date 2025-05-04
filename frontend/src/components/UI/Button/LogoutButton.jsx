@@ -8,7 +8,6 @@ export default function LogoutButton({ className }) {
   const navigate = useNavigate();
 
   function handleLogout() {
-    console.log("logout");
 
     apiFetch(`logout`, "POST", null)
       .then(() => localStorage.clear())

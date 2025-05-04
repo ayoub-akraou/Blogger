@@ -25,7 +25,6 @@ export default function CategoriesTable() {
     const id = e.target.closest("tr").id;
     apiFetch(`categories/${id}`, "DELETE", null, setError)
       .then((data) => {
-        console.log(data);
         setMessage(data.message);
         setError(null);
         const updatedCategories = categories.filter(
@@ -35,7 +34,7 @@ export default function CategoriesTable() {
         localStorage.setItem("categories", JSON.stringify(updatedCategories));
       })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
         setError(err.message);
         setMessage(null);
       });
@@ -232,7 +231,6 @@ function CreateCategoryModal(
   formData,
   setFormData}
 ) {
-  console.log(formData);
 
   function handleSubmit(e) {
     e.preventDefault();

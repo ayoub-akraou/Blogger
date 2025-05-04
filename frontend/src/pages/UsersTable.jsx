@@ -31,7 +31,7 @@ export default function UsersTable() {
           localStorage.setItem("users", JSON.stringify(data));
         })
         .catch((err) => {
-          console.log(err.message);
+          console.error(err.message);
           setError(err.message);
           setMessage(null);
         });
@@ -42,7 +42,6 @@ export default function UsersTable() {
     const id = e.target.closest("tr").id;
     apiFetch(`admin/delete-user/${id}`, "DELETE", null, setError)
       .then((data) => {
-        console.log(data);
         setMessage(data.message);
         setError(null);
         const updatedUsers = users.filter((user) => user.id !== Number(id));
@@ -50,7 +49,7 @@ export default function UsersTable() {
         localStorage.setItem("users", JSON.stringify(updatedUsers));
       })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
         setError(err.message);
         setMessage(null);
       });
@@ -60,7 +59,6 @@ export default function UsersTable() {
     const id = e.target.closest("tr").id;
     apiFetch(`admin/suspend-user/${id}`, "PATCH", null, setError)
       .then((data) => {
-        console.log(data);
         setMessage(data.message);
         setError(null);
         const updatedUsers = users.map((user) =>
@@ -70,7 +68,7 @@ export default function UsersTable() {
         localStorage.setItem("users", JSON.stringify(updatedUsers));
       })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
         setError(err.message);
         setMessage(null);
       });
@@ -80,7 +78,6 @@ export default function UsersTable() {
     const id = e.target.closest("tr").id;
     apiFetch(`admin/activate-user/${id}`, "PATCH", null, setError)
       .then((data) => {
-        console.log(data);
         setMessage(data.message);
         setError(null);
         const updatedUsers = users.map((user) =>
@@ -90,7 +87,7 @@ export default function UsersTable() {
         localStorage.setItem("users", JSON.stringify(updatedUsers));
       })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
         setError(err.message);
         setMessage(null);
       });

@@ -31,14 +31,13 @@ export default function AuthorDashboard() {
     const id = e.target.closest(".parent").id;
     apiFetch(`blogs/${id}`, "DELETE", null, setError)
       .then((data) => {
-        console.log(data);
         setMessage(data.message);
         setError(null);
         setBlogs(blogs.filter((blog) => blog.id !== Number(id)));
         localStorage.setItem("blogs", JSON.stringify(blogs));
       })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
 
         setError(err.message);
         setMessage(null);
@@ -49,14 +48,13 @@ export default function AuthorDashboard() {
     const id = e.target.closest(".parent").id;
     apiFetch(`blogs/${id}/publish`, "PATCH", null, setError)
       .then((data) => {
-        console.log(data);
         setMessage(data.message);
         setError(null);
         setBlogs(blogs.map((blog) => blog.id === Number(id) ? {...blog, status: "active"} : blog));
         localStorage.setItem("blogs", JSON.stringify(blogs));
       })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
 
         setError(err.message);
         setMessage(null);
@@ -67,14 +65,13 @@ export default function AuthorDashboard() {
     const id = e.target.closest(".parent").id;
     apiFetch(`blogs/${id}/unpublish`, "PATCH", null, setError)
       .then((data) => {
-        console.log(data);
         setMessage(data.message);
         setError(null);
         setBlogs(blogs.map((blog) => blog.id === Number(id) ? {...blog, status: "suspended"} : blog));
         localStorage.setItem("blogs", JSON.stringify(blogs));
       })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
         setError(err.message);
         setMessage(null);
       });

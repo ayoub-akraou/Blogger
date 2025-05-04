@@ -17,7 +17,6 @@ export default function TagsTable() {
     const id = e.target.closest("tr").id;
     apiFetch(`tags/${id}`, "DELETE", null, setError)
       .then((data) => {
-        console.log(data);
         setMessage(data.message);
         setError(null);
         const updatedTags = tags.filter((tag) => tag.id !== Number(id));
@@ -25,7 +24,7 @@ export default function TagsTable() {
         localStorage.setItem("tags", JSON.stringify(updatedTags));
       })
       .catch((err) => {
-        console.log(err.message);
+        console.error(err.message);
         setError(err.message);
         setMessage(null);
       });
@@ -98,9 +97,8 @@ export default function TagsTable() {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {tags.map((tag) => {console.log(tag)
+            {tags.map((tag) => {
               return <Row
-
                 key={tag?.id}
                 id={tag?.id}
                 name={tag?.name}
@@ -155,8 +153,7 @@ function Row({
       <td className="px-4 text-center py-2 md:px-6 md:py-4 whitespace-nowrap">
         <span
           className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full`}
-        >{console.log(blogs, views)
-        }
+        >
           {blogs}
         </span>
       </td>

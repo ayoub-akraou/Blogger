@@ -6,12 +6,13 @@ import apiFetch from "../api/api";
 import Alert from "../components/UI/Alerts/Alert";
 import { useNavigate } from "react-router-dom";
 
-export default function Profile({ className, image = "/images/avatar.png" }) {
+export default function Profile({ className }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [bio, setBio] = useState("bio...");
+  const [image, setImage] = useState("");
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ export default function Profile({ className, image = "/images/avatar.png" }) {
     setName(user?.name || '');
     setEmail(user?.email || '');
     setBio(user?.bio || 'bio...');
+    setImage(user?.image || "/images/avatar.png");
   }, []);
 
   function handleSubmit(e) {
@@ -33,7 +35,6 @@ export default function Profile({ className, image = "/images/avatar.png" }) {
       setError
     )
       .then((data) => {
-        console.log(data);
         setMessage(data.message);
         localStorage.setItem("user", JSON.stringify(data.user));
       })
