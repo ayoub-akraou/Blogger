@@ -3,7 +3,7 @@ import React from "react";
 export default function AuthorCard({
   className,
   style,
-  image = "/images/avatar.png",
+  image,
   name = "Floyd Miles",
   socials,
   id,
@@ -15,7 +15,7 @@ export default function AuthorCard({
       style={style}
     >
       <img
-        src={image}
+        src={image || "/images/avatar.png"}
         alt={name}
         className="w-36 h-36 rounded-full mb-6 object-contain"
       />
