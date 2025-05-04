@@ -29,6 +29,7 @@ Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logo
 Route::middleware('auth:sanctum')->group(function () {
     // les utilisateurs
     Route::get('users', [UserController::class, 'index']);
+    Route::get('top-authors/{limit?}', [UserController::class, 'topAuthors']);
     Route::get('users/count', [UserController::class, 'count']);
     Route::get('users/authors/count', [UserController::class, 'countAuthors']);
     Route::get('profile', [UserController::class, 'profile']);
@@ -40,6 +41,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('users/{author}/unfollow', [UserController::class, 'unfollow']);
     // les categories
     Route::get('categories', [CategoryController::class, 'index']);
+    Route::get('categories/last', [CategoryController::class, 'last']);
     Route::post('categories', [CategoryController::class, 'store']);
     Route::get('categories/{category}', [CategoryController::class, 'show']);
     Route::put('categories/{category}', [CategoryController::class, 'update']);
@@ -52,9 +54,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('tags/{tag}', [TagController::class, 'update']);
     Route::delete('tags/{tag}', [TagController::class, 'destroy']);
     // les blogs
-    Route::get('blogs', [BlogController::class, 'index']);
-    Route::post('blogs', [BlogController::class, 'store']);
     Route::get('blogs/search', [BlogController::class, 'search']);
+    Route::get('blogs/{limit?}', [BlogController::class, 'index']);
+    Route::get('popular-blogs/{limit?}', [BlogController::class, 'popularBlogs']);
+    Route::post('blogs', [BlogController::class, 'store']);
     Route::post('blogs/{blog}/like', [BlogController::class, 'toggleLike']);
     Route::post('blogs/{blog}/dislike', [BlogController::class, 'toggleDislike']);
     Route::patch('blogs/{blog}/increment-views', [BlogController::class, 'increamentViews']);
