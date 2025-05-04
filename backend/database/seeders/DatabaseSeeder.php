@@ -30,71 +30,91 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('password'),
+            'image' => 'images/avatar-1.avif'
         ]);
-
+        
         Author::create([
-            'name' => 'Author1',
+            'name' => 'Ahmed Fathy',
             'email' => 'author1@author.com',
             'password' => bcrypt('password'),
+            'image' => 'images/avatar-2.avif'
         ]);
-    
+        
         Author::create([
-            'name' => 'Author2',
+            'name' => 'Osama Mohamed',
             'email' => 'author2@author.com',
             'password' => bcrypt('password'),
+            'image' => 'images/avatar-3.avif'
+        ]);
+        
+        Author::create([
+            'name' => 'Islam Hesham',
+            'email' => 'author3@author.com',
+            'password' => bcrypt('password'),
+            'image' => 'images/avatar-4.avif'
+        ]);
+        
+        Author::create([
+            'name' => 'Nour El-din',
+            'email' => 'author4@author.com',
+            'password' => bcrypt('password'),
+            'image' => 'images/avatar-5.avif'
         ]);
         
         Regular::create([
             'name' => 'Regular1',
             'email' => 'regular1@regular.com',
             'password' => bcrypt('password'),
+            'image' => 'images/avatar-6.avif'
         ]);
         Regular::create([
             'name' => 'Regular2',
             'email' => 'regular2@regular.com',
             'password' => bcrypt('password'),
+            'image' => 'images/avatar-7.avif'
         ]);
         Regular::create([
             'name' => 'Regular3',
             'email' => 'regular3@regular.com',
             'password' => bcrypt('password'),
+            'image' => 'images/avatar-8.avif'
         ]);
-
+        
         // Catégories
         Category::create([
             'name' => 'Technologie',
             'description' => 'Actualités et innovations dans le domaine de la technologie',
-            'image' => '/images/new-category.png',
+            'image' => '/images/technology.avif',
             'color' => '#2196F3'
         ]);
         Category::create([
             'name' => 'Développement',
             'description' => 'Guides et tutoriels de programmation',
-            'image' => '/images/new-category.png',
+            'image' => '/images/development.avif',
             'color' => '#4CAF50'
         ]);
         Category::create([
             'name' => 'Design',
             'description' => 'UI/UX design et graphisme',
-            'image' => '/images/new-category.png',
+            'image' => '/images/design.avif',
             'color' => '#FF9800'
         ]);
         Category::create([
             'name' => 'Business',
             'description' => 'Stratégies et conseils pour les entrepreneurs',
-            'image' => '/images/new-category.png',
+            'image' => '/images/business.avif',
             'color' => '#9C27B0'
         ]);
         Category::create([
             'name' => 'Voyage',
             'description' => 'Destinations et aventures autour du monde',
-            'image' => '/images/new-category.png',
+            'image' => '/images/voyage.avif',
             'color' => '#FF5722'
         ]);
         Category::create([
             'name' => 'Lifestyle',
             'description' => 'Mode de vie et bien-être',
-            'image' => '/images/new-category.png',
+            'image' => '/images/lifestyle.avif',
             'color' => '#795548'
         ]);
 
