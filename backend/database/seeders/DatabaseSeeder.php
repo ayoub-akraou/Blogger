@@ -64,37 +64,37 @@ class DatabaseSeeder extends Seeder
         Category::create([
             'name' => 'Technologie',
             'description' => 'Actualités et innovations dans le domaine de la technologie',
-            'image' => 'tech.jpg',
+            'image' => '/images/new-category.png',
             'color' => '#2196F3'
         ]);
         Category::create([
             'name' => 'Développement',
             'description' => 'Guides et tutoriels de programmation',
-            'image' => 'dev.jpg',
+            'image' => '/images/new-category.png',
             'color' => '#4CAF50'
         ]);
         Category::create([
             'name' => 'Design',
             'description' => 'UI/UX design et graphisme',
-            'image' => 'design.jpg',
+            'image' => '/images/new-category.png',
             'color' => '#FF9800'
         ]);
         Category::create([
             'name' => 'Business',
             'description' => 'Stratégies et conseils pour les entrepreneurs',
-            'image' => 'business.jpg',
+            'image' => '/images/new-category.png',
             'color' => '#9C27B0'
         ]);
         Category::create([
             'name' => 'Voyage',
             'description' => 'Destinations et aventures autour du monde',
-            'image' => 'travel.jpg',
+            'image' => '/images/new-category.png',
             'color' => '#FF5722'
         ]);
         Category::create([
             'name' => 'Lifestyle',
             'description' => 'Mode de vie et bien-être',
-            'image' => 'lifestyle.jpg',
+            'image' => '/images/new-category.png',
             'color' => '#795548'
         ]);
 
