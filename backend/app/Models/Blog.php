@@ -52,7 +52,7 @@ class Blog extends Model
 
     public static function search($query)
     {
-        return self::where('title', 'like', "%{$query}%")
+        return self::with(['author'])->where('title', 'like', "%{$query}%")
             ->orWhere('content', 'like', "%{$query}%")
             ->orWhereHas('author', fn($q) => $q->where('name', 'like', "%{$query}%"))
             ->get();
