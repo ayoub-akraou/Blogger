@@ -29,6 +29,7 @@ class User extends Authenticatable
         'author_request',
         'status',
         'bio',
+        "image"
     ];
 
     /**
