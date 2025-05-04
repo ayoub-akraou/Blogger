@@ -19,7 +19,7 @@ export default function SignUp() {
     const password_confirmation = data.get("password_confirmation");
 
     apiFetch(
-      "/register",
+      "register",
       "POST",
       {
         name,
