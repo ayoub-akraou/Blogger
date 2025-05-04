@@ -5,14 +5,12 @@ import { Viewer } from "@toast-ui/react-editor";
 
 export default function BlogDetail() {
   const { id } = useParams();
-  const blog = JSON.parse(localStorage.getItem("blogs") || "[]").find(
-    (blog) => blog.id === parseInt(id)
-  );
+  const blogs = JSON.parse(localStorage.getItem("blogs") || "[]");
+  const blog = blogs.find((blog) => blog.id === parseInt(id));
+
   const category = JSON.parse(localStorage.getItem("categories") || "[]").find(
     (category) => category.id === parseInt(blog.category_id)
   );
-  console.log(blog);
-  console.log(category);
 
   if (!blog) {
     return <div>Blog not found</div>;
@@ -20,23 +18,23 @@ export default function BlogDetail() {
 
   return (
     <>
-    {blog.image && (
-          <div className="mb-6 h-64 mt-16 relative">
-            <img
-              src={blog.image}
-              alt={blog.title}
-              className=" object-cover w-full h-full"
-            />
-            <p className="absolute bg-white bottom-2 left-2 font-semibold mb-2 border text-sm text-center border-gray-700 px-2 py-1 rounded-sm text-gray-700">{category.name}</p>
-          </div>
-        )}
-      
+      {blog.image && (
+        <div className="mb-6 h-64 mt-16 relative">
+          <img
+            src={blog.image}
+            alt={blog.title}
+            className=" object-cover w-full h-full"
+          />
+          <p className="absolute bg-white bottom-2 left-2 font-semibold mb-2 border text-sm text-center border-gray-700 px-2 py-1 rounded-sm text-gray-700">
+            {category.name}
+          </p>
+        </div>
+      )}
+
       <div className="max-w-4xl mx-auto  pb-20">
-        <h1
-        className="pr-20 sm:text-6xl text-4xl uppercase font-medium mb-4 text-black italic"
-      >
-        {blog.title}
-      </h1>
+        <h1 className="pr-20 sm:text-6xl text-4xl uppercase font-medium mb-4 text-black italic">
+          {blog.title}
+        </h1>
 
         {/* Afficher le contenu avec le Viewer de Toast UI */}
         <div className="mt-4">
