@@ -9,6 +9,7 @@ import Button from "../components/UI/Button/Button.jsx";
 import Alert from "../components/UI/Alerts/Alert";
 import apiFetch from "../api/api.js";
 import { Link } from "react-router-dom";
+import Pagination from "../components/UI/Pagination";
 
 export default function AuthorDashboard() {
   const [blogs, setBlogs] = useState(
@@ -17,6 +18,13 @@ export default function AuthorDashboard() {
   const categories = JSON.parse(localStorage.getItem("categories")) || [];
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const blogsPerPage = 15;
+
+  // Calculate the blogs to display
+  const indexOfLastBlog = currentPage * blogsPerPage;
+  const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
+  const currentBlogs = blogs.slice(indexOfFirstBlog, indexOfLastBlog);
 
   function handleDelete(e) {
     e.preventDefault();
@@ -123,31 +131,44 @@ export default function AuthorDashboard() {
               </thead>
               <tbody id="blog-table-body">
                 {/* <!-- Les lignes du tableau seront générées dynamiquement par JavaScript --> */}
-                {blogs.map((blog) => (
-                  <Row
-                    id={blog.id}
-                    title={blog.title}
-                    category={
-                      categories.find(
-                        (category) => category.id == blog.category_id
-                      ).name
-                    }
-                    status={blog.status}
-                    views={blog.views}
-                    likes={blog.likes}
-                    key={blog.id}
-                    handleDelete={handleDelete}
-                    handleActivateBlog={handleActivateBlog}
-                    handleSuspendBlog={handleSuspendBlog}
-                  />
-                ))}
+                {currentBlogs.length === 0 ? (
+                  <tr>
+                    <td colSpan="7" className="text-center py-4">
+                      No blogs found
+                    </td>
+                  </tr>
+                ) : (
+                  currentBlogs.map((blog) => (
+                    <Row
+                      id={blog.id}
+                      title={blog.title}
+                      category={
+                        categories.find(
+                          (category) => category.id == blog.category_id
+                        ).name
+                      }
+                      status={blog.status}
+                      views={blog.views}
+                      likes={blog.likes}
+                      key={blog.id}
+                      handleDelete={handleDelete}
+                      handleActivateBlog={handleActivateBlog}
+                      handleSuspendBlog={handleSuspendBlog}
+                    />
+                  ))
+                )}
               </tbody>
             </table>
           </div>
         </div>
 
         {/* <!-- Pagination --> */}
-        <Pagination />
+        <Pagination
+          currentPage={currentPage}
+          totalItems={blogs.length}
+          itemsPerPage={blogsPerPage}
+          setCurrentPage={setCurrentPage}
+        />
       </div>
     </div>
   );
@@ -207,31 +228,5 @@ function Row({
         </div>
       </td>
     </tr>
-  );
-}
-
-function Pagination({ className }) {
-  return (
-    <div
-      className={`${className} flex flex-col sm:flex-row justify-between items-center mt-4 search-pagination`}
-    >
-      <div className="text-sm text-[#979797]" id="pagination-info">
-        Showing 1-09 of 78
-      </div>
-      <div className="flex space-x-2">
-        <button
-          id="prev-page"
-          className="w-8 h-8 border border-[#d5d5d5] rounded-md flex items-center justify-center"
-        >
-          <Cheveron orientation="left" />
-        </button>
-        <button
-          id="next-page"
-          className="w-8 h-8 border border-[#d5d5d5] rounded-md flex items-center justify-center"
-        >
-          <Cheveron orientation="right" />
-        </button>
-      </div>
-    </div>
   );
 }
