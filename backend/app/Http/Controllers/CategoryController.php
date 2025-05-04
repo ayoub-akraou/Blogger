@@ -29,7 +29,7 @@ class CategoryController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Categories retrieved successfully',
-                'data' => $categories
+                'categories' => $categories
             ]);
         } catch (Exception $e) {
             return response()->json([
@@ -39,6 +39,23 @@ class CategoryController extends Controller
         }
     }
 
+    public function last()
+    {
+        try {
+            $category = Category::latest()->first();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Category retrieved successfully',
+                'category' => $category
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
     /**
      * Store a newly created resource in storage.
      */
