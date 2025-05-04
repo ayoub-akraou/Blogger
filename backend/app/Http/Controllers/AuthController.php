@@ -26,15 +26,14 @@ class AuthController extends Controller
             $user = new User();
             $user->register($validatedData);
 
-            $blogs = [];
+            $blogs = Blog::with('tags', 'comments', 'author', 'category')->get();
+            $categories = Category::with('blogs.author')->get();
             $tags = Tag::all();
             if ($user->type === 'author') {
                 $blogs = Blog::where('author_id', $user->id)->with('tags', 'comments', 'author', 'category')->get();
-                $categories = Category::with('blogs.author')->get();
             }
 
             if ($user->type === 'admin') {
-                $blogs = Blog::with('tags', 'comments', 'author', 'category')->get();
                 $categories = Category::with(['blogs.author'])
                     ->withCount([
                         'blogs as views' => function ($query) {
@@ -96,13 +95,14 @@ class AuthController extends Controller
             }
 
             $tags = Tag::all();
+            $categories = Category::with('blogs.author')->get();
+            $blogs = Blog::with('tags', 'comments', 'author', 'category')->get();
+
             if ($result['user']->type === 'author') {
                 $blogs = Blog::where('author_id', $result['user']->id)->with('tags', 'comments', 'author', 'category')->get();
-                $categories = Category::with('blogs.author')->get();
             }
 
             if ($result['user']->type === 'admin') {
-                $blogs = Blog::with('tags', 'comments', 'author', 'category')->get();
                 $categories = Category::with(['blogs.author'])
                     ->withCount([
                         'blogs as views' => function ($query) {
@@ -113,7 +113,6 @@ class AuthController extends Controller
                         }
                     ])->get();
                 $tags = Tag::withCount([
-                    // je veux le nombre total de blogs pas les blogs
                     'blogs as blogs',
                     'blogs as views' => function ($query) {
                         $query->select(DB::raw('COALESCE(SUM(views), 0)'));
