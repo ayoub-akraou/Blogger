@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 
 import LogoIcon from "../Icons/Logo.jsx";
 import Logo from "../UI/Logo/Logo";
@@ -22,8 +22,11 @@ export default function DashBoardLayout({ children }) {
         {/* <!-- Sidebar --> */}
         <div className="w-fit md:w-56 h-screen bg-white border-r border-gray-200 flex flex-col fixed top-0 left-0 z-50">
           {/* <!-- Logo --> */}
-          <Logo className="mx-6 my-4 hidden md:block" />
-          <LogoIcon className="mx-3 md:mx-6 my-4 block md:hidden" />
+
+          <Link to="/">
+            <Logo className="mx-6 my-4 hidden md:block" />
+            <LogoIcon className="mx-3 md:mx-6 my-4 block md:hidden" />
+          </Link>
 
           {/* <!-- Navigation --> */}
           <nav className="flex-1 flex gap-3 flex-col mt-6">
