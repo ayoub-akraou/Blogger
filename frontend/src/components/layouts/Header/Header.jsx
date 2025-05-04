@@ -17,7 +17,6 @@ export default function Header({ className }) {
       <nav className="mx-auto container flex items-center justify-between gap-5">
         <Logo isLight={true} className="mr-auto hidden sm:block" />
         <LogoIcon className="sm:hidden"></LogoIcon>
-        <SearchBar className="hidden sm:flex" />
         <Menu isOpened={isOpened} onClick={toggleMenu} />
         {isAuthenticated && <ProfileAvatar className="ml-auto" />}
         <BurgerMenu className="sm:hidden" onClick={toggleMenu} />   
