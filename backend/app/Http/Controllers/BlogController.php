@@ -14,14 +14,19 @@ class BlogController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($limit = null)
     {
         try {
-            $blogs = Blog::all();
-            return response()->json(['status' => 'success', 'data' => $blogs]);
+            if ($limit) {
+                $blogs = Blog::with(['author', 'category'])->orderBy('created_at', 'desc')->limit($limit)->get();
+            } else {
+                $blogs = Blog::with(['author', 'category'])->orderBy('created_at', 'desc')->get();
+            }
+
+            return response()->json(['success' => true, 'blogs' => $blogs]);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'error',
+                'success' => false,
                 'message' => $e->getMessage()
             ], 500);
         }
@@ -101,7 +106,7 @@ class BlogController extends Controller
             ]);
 
             $blog->update($request->except('tags'));
-            
+
             if (isset($request->tags)) {
                 $blog->tags()->sync($request->tags);
             }
@@ -142,21 +147,19 @@ class BlogController extends Controller
 
     public function search(Request $request)
     {
-        $query = $request->input('query');
+        $query = $request->query('query');
 
-        if (!$query) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Paramètre "query" manquant.',
-            ], 400);
+        if ($query) {
+            $blogs = Blog::search($query);
+        } else {
+            $blogs = Blog::with(['author', 'category'])->get();
         }
-
-        $blogs = Blog::search($query);
 
         return response()->json([
             'success' => true,
-            'request' => $request->all(),
-            'data' => $blogs,
+            'query' => $query,
+            'message' => 'Blogs fetched successfully',
+            'blogs' => $blogs,
         ]);
     }
 
@@ -274,6 +277,24 @@ class BlogController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function popularBlogs($limit = null)
+    {
+        try {
+            if ($limit) {
+                $blogs = Blog::with(['author', 'category'])->orderBy('views', 'desc')->limit($limit)->get();
+            } else {
+                $blogs = Blog::with(['author', 'category'])->orderBy('views', 'desc')->get();
+            }
+
+            return response()->json(['status' => 'success', 'blogs' => $blogs]);
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
                 'message' => $e->getMessage()
             ], 500);
         }
