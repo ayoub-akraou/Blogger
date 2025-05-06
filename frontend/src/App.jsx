@@ -28,9 +28,9 @@ export default function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<Home />} />
-          <Route path="/about-us" element={<AboutUs />} />
+          {/* <Route path="/about-us" element={<AboutUs />} /> */}
           <Route path="/contact-us" element={<ContactUs />} />
-          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/blogs/:query?" element={<Blogs />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/author-dashboard" element={<AuthorDashboard />} />
