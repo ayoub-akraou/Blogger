@@ -168,7 +168,7 @@ function TopAuthors({authors}) {
         Our Top Authors
       </h2>
       <div className="flex justify-between items-center max-w-screen-md mx-auto gap-8 flex-wrap sm:gap-6 ">
-        {authors.map(author => <AuthorCard key={author.id} name={author.name} image={author.author} />)}
+        {authors.map(author => <AuthorCard key={author.id} name={author.name} image={author.image} />)}
         </div>
     </section>
   );
