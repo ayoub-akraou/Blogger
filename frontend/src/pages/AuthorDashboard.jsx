@@ -12,6 +12,9 @@ import { Link } from "react-router-dom";
 import Pagination from "../components/UI/Pagination";
 
 export default function AuthorDashboard() {
+  const [myBlogs, setMyBlogs] = useState(
+    JSON.parse(localStorage.getItem("my_blogs")) || []
+  );
   const [blogs, setBlogs] = useState(
     JSON.parse(localStorage.getItem("blogs")) || []
   );
@@ -24,17 +27,22 @@ export default function AuthorDashboard() {
   // Calculate the blogs to display
   const indexOfLastBlog = currentPage * blogsPerPage;
   const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
-  const currentBlogs = blogs.slice(indexOfFirstBlog, indexOfLastBlog);
+  const currentBlogs = myBlogs.slice(indexOfFirstBlog, indexOfLastBlog);
 
   function handleDelete(e) {
     e.preventDefault();
-    const id = e.target.closest(".parent").id;
+    const id = e.target.closest(".parent")?.id;
+    console.log(id);
     apiFetch(`blogs/${id}`, "DELETE", null, setError)
       .then((data) => {
         setMessage(data.message);
         setError(null);
-        setBlogs(blogs.filter((blog) => blog.id !== Number(id)));
-        localStorage.setItem("blogs", JSON.stringify(blogs));
+        const updatedMyBlogs = myBlogs.filter((blog) => blog.id !== Number(id));
+        setMyBlogs(updatedMyBlogs);
+        localStorage.setItem("my_blogs", JSON.stringify(updatedMyBlogs));
+        const updatedBlogs = blogs.filter((blog) => blog.id !== Number(id));
+        setBlogs(updatedBlogs);
+        localStorage.setItem("blogs", JSON.stringify(updatedBlogs));
       })
       .catch((err) => {
         console.error(err.message);
@@ -50,8 +58,12 @@ export default function AuthorDashboard() {
       .then((data) => {
         setMessage(data.message);
         setError(null);
-        setBlogs(blogs.map((blog) => blog.id === Number(id) ? {...blog, status: "active"} : blog));
-        localStorage.setItem("blogs", JSON.stringify(blogs));
+        const updatedMyBlogs = myBlogs.map((blog) => blog.id === Number(id) ? {...blog, status: "active"} : blog);
+        setMyBlogs(updatedMyBlogs);
+        localStorage.setItem("my_blogs", JSON.stringify(updatedMyBlogs));
+        const updatedBlogs = [...blogs, data.blog];
+        setBlogs(updatedBlogs);
+        localStorage.setItem("blogs", JSON.stringify(updatedBlogs));
       })
       .catch((err) => {
         console.error(err.message);
@@ -67,8 +79,9 @@ export default function AuthorDashboard() {
       .then((data) => {
         setMessage(data.message);
         setError(null);
-        setBlogs(blogs.map((blog) => blog.id === Number(id) ? {...blog, status: "suspended"} : blog));
-        localStorage.setItem("blogs", JSON.stringify(blogs));
+        const updatedBlogs = myBlogs.map((blog) => blog.id === Number(id) ? {...blog, status: "suspended"} : blog);
+        setMyBlogs(updatedBlogs);
+        localStorage.setItem("my_blogs", JSON.stringify(updatedBlogs));
       })
       .catch((err) => {
         console.error(err.message);
@@ -162,7 +175,7 @@ export default function AuthorDashboard() {
         {/* <!-- Pagination --> */}
         <Pagination
           currentPage={currentPage}
-          totalItems={blogs.length}
+          totalItems={myBlogs.length}
           itemsPerPage={blogsPerPage}
           setCurrentPage={setCurrentPage}
         />
