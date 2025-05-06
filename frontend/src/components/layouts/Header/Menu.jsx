@@ -30,9 +30,9 @@ export default function Menu({ className, isOpened, onClick }) {
       <li>
         <Link to="/blogs">Blogs</Link>
       </li>
-      <li>
+      {/* <li>
         <Link to="/about-us">About us</Link>
-      </li>
+      </li> */}
       <li>
         <Link to="/categories">Categories</Link>
       </li>
