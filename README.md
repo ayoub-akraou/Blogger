@@ -1,21 +1,5 @@
 # Blogger - Plateforme de Blogging Moderne
 
-![Blogger Logo](frontend/public/images/logo.png)
-
-## 📋 Table des matières
-
-- [Présentation du projet](#présentation-du-projet)
-- [Architecture](#architecture)
-- [Fonctionnalités](#fonctionnalités)
-- [Technologies utilisées](#technologies-utilisées)
-- [Installation](#installation)
-- [Structure du projet](#structure-du-projet)
-- [API Endpoints](#api-endpoints)
-- [Rôles et permissions](#rôles-et-permissions)
-- [Captures d'écran](#captures-décran)
-- [Contributeurs](#contributeurs)
-- [Licence](#licence)
-
 ## 🌟 Présentation du projet
 
 Blogger est une plateforme de blogging moderne développée comme une Single Page Application (SPA), offrant une expérience utilisateur fluide et réactive. Le projet permet aux utilisateurs de créer, gérer et interagir avec du contenu de blog, avec des fonctionnalités spécifiques selon leur rôle (utilisateur standard, auteur ou administrateur).
@@ -237,28 +221,6 @@ frontend/
 - Peut modérer tous les blogs
 - Peut gérer les catégories et tags
 - Peut accéder aux statistiques globales
-
-## 📸 Captures d'écran
-
-![Page d'accueil](frontend/public/images/screenshots/home.png)
-*Page d'accueil avec les blogs récents*
-
-![Détail d'un blog](frontend/public/images/screenshots/blog-detail.png)
-*Page de détail d'un blog avec commentaires*
-
-![Tableau de bord auteur](frontend/public/images/screenshots/author-dashboard.png)
-*Tableau de bord d'un auteur*
-
-![Statistiques](frontend/public/images/screenshots/stats.png)
-*Page de statistiques*
-
-## 👨‍💻 Contributeurs
-
-- [Votre Nom](https://github.com/votre-username) - Développeur principal
-
-## 📄 Licence
-
-Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
 
 ---
 
