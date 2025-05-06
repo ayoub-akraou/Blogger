@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function BlogsEditor({ initialValue = "" }) {
   const editorRef = useRef();
-  const [mode, setMode] = useState("markdown");
+  const [mode, setMode] = useState("wysiwyg");
   const [content, setContent] = useState(initialValue);
   const [title, setTitle] = useState("");
   const [category_id, setCategory_id] = useState("");
@@ -79,6 +79,8 @@ export default function BlogsEditor({ initialValue = "" }) {
           setError(null);
           const blogs = JSON.parse(localStorage.getItem("blogs") || "[]");
           localStorage.setItem("blogs", JSON.stringify([...blogs, data.blog]));
+          const my_blogs = JSON.parse(localStorage.getItem("my_blogs") || "[]");
+          localStorage.setItem("my_blogs", JSON.stringify([...my_blogs, data.blog]));
           navigate(`/blog-detail/${data.blog.id}`);
         })
         .catch((err) => {
