@@ -29,11 +29,13 @@ class AuthController extends Controller
             $blogs = Blog::with('tags', 'comments', 'author', 'category')->get();
             $categories = Category::with('blogs.author')->get();
             $tags = Tag::all();
+            $my_blogs = [];
             if ($user->type === 'author') {
-                $blogs = Blog::where('author_id', $user->id)->with('tags', 'comments', 'author', 'category')->get();
+                $my_blogs = Blog::withoutGlobalScope('active')->where('author_id', $user->id)->with('tags', 'comments', 'author', 'category')->get();
             }
-
+            
             if ($user->type === 'admin') {
+                $blogs = Blog::withoutGlobalScope('active')->with('tags', 'comments', 'author', 'category')->get();
                 $categories = Category::with(['blogs.author'])
                     ->withCount([
                         'blogs as views' => function ($query) {
@@ -57,6 +59,7 @@ class AuthController extends Controller
                 'message' => 'Utilisateur inscrit avec succès',
                 'user' => $user,
                 'blogs' => $blogs,
+                'my_blogs' => $my_blogs,
                 'token' => $token,
                 'categories' => $categories,
                 'tags' => $tags,
@@ -97,12 +100,13 @@ class AuthController extends Controller
             $tags = Tag::all();
             $categories = Category::with('blogs.author')->get();
             $blogs = Blog::with('tags', 'comments', 'author', 'category')->get();
-
+            $my_blogs = [];
             if ($result['user']->type === 'author') {
-                $blogs = Blog::where('author_id', $result['user']->id)->with('tags', 'comments', 'author', 'category')->get();
+                $my_blogs = Blog::withoutGlobalScope('active')->where('author_id', $result['user']->id)->with('tags', 'comments', 'author', 'category')->get();
             }
-
+            
             if ($result['user']->type === 'admin') {
+                $blogs = Blog::withoutGlobalScope('active')->with('tags', 'comments', 'author', 'category')->get();
                 $categories = Category::with(['blogs.author'])
                     ->withCount([
                         'blogs as views' => function ($query) {
@@ -126,6 +130,7 @@ class AuthController extends Controller
                 'message' => 'Connexion réussie',
                 'user' => $result['user'],
                 'blogs' => $blogs,
+                'my_blogs' => $my_blogs,
                 'token' => $result['token'],
                 'categories' => $categories,
                 'tags' => $tags,

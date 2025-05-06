@@ -56,7 +56,7 @@ class BlogController extends Controller
             if (isset($request->tags)) {
                 $blog->tags()->sync($request->tags);
             }
-
+            $blog->tags;
             return response()->json(['success' => true, 'message' => 'Blog created successfully', 'blog' => $blog]);
         } catch (ValidationException $e) {
             return response()->json([
@@ -89,7 +89,7 @@ class BlogController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Blog $blog)
+    public function update(Request $request, $id)
     {
         try {
             $request->validate([
@@ -105,6 +105,7 @@ class BlogController extends Controller
                 'tags' => 'sometimes|required|array'
             ]);
 
+            $blog = Blog::withoutGlobalScope('active')->find($id);
             $blog->update($request->except('tags'));
 
             if (isset($request->tags)) {
@@ -129,9 +130,10 @@ class BlogController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Blog $blog)
+    public function destroy($id)
     {
         try {
+            $blog = Blog::withoutGlobalScope('active')->find($id);
             $blog->delete();
             return response()->json([
                 'success' => true,
@@ -195,13 +197,15 @@ class BlogController extends Controller
         }
     }
 
-    public function publish(Blog $blog)
+    public function publish($id)
     {
+        $blog = Blog::withoutGlobalScope('active')->find($id);
         try {
             $blog->publish();
             return response()->json([
                 'success' => true,
-                'message' => 'Blog publié avec succès'
+                'message' => 'Blog publié avec succès',
+                'blog' => $blog
             ]);
         } catch (Exception $e) {
             return response()->json([
@@ -217,7 +221,8 @@ class BlogController extends Controller
             $blog->unpublish();
             return response()->json([
                 'success' => true,
-                'message' => 'Blog non publié'
+                'message' => 'Blog non publié',
+                'blog' => $blog
             ]);
         } catch (Exception $e) {
             return response()->json([
@@ -227,14 +232,15 @@ class BlogController extends Controller
         }
     }
 
-    public function toggleLike(Blog $blog)
+    public function toggleLike($id)
     {
         $user = Auth::user();
         try {
+            $blog = Blog::withoutGlobalScope('active')->find($id);
             $blog->toggleLike($user);
             return response()->json([
                 'success' => true,
-                'message' => 'l\'action terminéé avec succès',
+                'message' => "l'action terminé avec succès",
                 'likes' => $blog->likes,
                 'dislikes' => $blog->dislikes,
             ]);
@@ -246,10 +252,11 @@ class BlogController extends Controller
         }
     }
 
-    public function toggleDislike(Blog $blog)
+    public function toggleDislike($id)
     {
         $user = Auth::user();
         try {
+            $blog = Blog::withoutGlobalScope('active')->find($id);
             $blog->toggleDislike($user);
             return response()->json([
                 'success' => true,
@@ -265,9 +272,10 @@ class BlogController extends Controller
         }
     }
 
-    public function increamentViews(Blog $blog)
+    public function increamentViews($id)
     {
         try {
+            $blog = Blog::withoutGlobalScope('active')->find($id);
             $blog->increamentViews();
             return response()->json([
                 'success' => true,
