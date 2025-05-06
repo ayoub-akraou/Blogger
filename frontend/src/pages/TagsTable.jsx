@@ -11,6 +11,11 @@ export default function TagsTable() {
   const [tags, setTags] = useState(
     JSON.parse(localStorage.getItem("tags")) || []
   );
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newTag, setNewTag] = useState({
+    name: "",
+    color: "#34c759"
+  });
 
   function handleDelete(e) {
     e.preventDefault();
@@ -30,6 +35,45 @@ export default function TagsTable() {
       });
   }
 
+  function handleCreateTag(e) {
+    e.preventDefault();
+    
+    if (!newTag.name.trim()) {
+      setError("Tag name is required");
+      return;
+    }
+    
+    apiFetch("tags", "POST", newTag, setError)
+      .then((data) => {
+        if (data.success) {
+          setMessage(data.message);
+          setError(null);
+          
+          const updatedTags = [...tags, data.data];
+          setTags(updatedTags);
+          localStorage.setItem("tags", JSON.stringify(updatedTags));
+          
+          setNewTag({ name: "", color: "#34c759" });
+          setIsModalOpen(false);
+        } else {
+          setError(data.message);
+        }
+      })
+      .catch((err) => {
+        console.error(err.message);
+        setError(err.message);
+        setMessage(null);
+      });
+  }
+  
+  function handleInputChange(e) {
+    const { name, value } = e.target;
+    setNewTag(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  }
+
   return (
     <div className="max-w-4xl mx-auto">
       {error && (
@@ -44,8 +88,63 @@ export default function TagsTable() {
       )}
       <div className="flex justify-between mb-2">
         <h1 className="text-2xl font-bold text-gray-800">Tags</h1>
-        <Button className="bg-primary leading-none ">Create New</Button>
+        <Button className="bg-primary leading-none " onClick={() => setIsModalOpen(true)}>Create New</Button>
       </div>
+      {/* modal de creation de vouveau tags */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+            <h2 className="text-xl font-bold mb-4">Create New Tag</h2>
+            <form onSubmit={handleCreateTag}>
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+                  Tag Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={newTag.name}
+                  onChange={handleInputChange}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  placeholder="Enter tag name"
+                  required
+                />
+              </div>
+              <div className="mb-6">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="color">
+                  Color
+                </label>
+                <div className="flex items-center">
+                  <input
+                    type="color"
+                    id="color"
+                    name="color"
+                    value={newTag.color}
+                    onChange={handleInputChange}
+                    className="h-10 w-10 mr-2"
+                  />
+                  <input
+                    type="text"
+                    name="color"
+                    value={newTag.color}
+                    onChange={handleInputChange}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  />
+                </div>
+              </div>
+              <div className="flex items-center justify-between">
+                <Button type="button" className="bg-gray-500" onClick={() => setIsModalOpen(false)}>
+                  Cancel
+                </Button>
+                <Button type="submit" className="bg-primary">
+                  Create Tag
+                </Button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* <!-- Table --> */}
       <div className="bg-white rounded-md md:rounded-lg shadow overflow-hidden border border-gray-300">
