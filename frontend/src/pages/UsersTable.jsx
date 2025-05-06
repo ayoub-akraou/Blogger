@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Eye from "../components/Icons/Eye";
 import Suspend from "../components/Icons/Suspend.jsx";
 import Delete from "../components/Icons/Delete.jsx";
 import Checked from "../components/Icons/Checked.jsx";
@@ -11,6 +10,7 @@ export default function UsersTable() {
   const [users, setUsers] = useState(
     JSON.parse(localStorage.getItem("users")) || []
   );
+  const pendingAuthors = users.filter((user) => user.author_request === "pending");
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
 
@@ -110,46 +110,7 @@ export default function UsersTable() {
       {/* <!-- Table --> */}
       <div className="bg-white rounded-md md:rounded-lg shadow overflow-hidden border border-gray-300">
         <table className="min-w-full divide-y divide-gray-300">
-          <thead className="bg-white">
-            <tr>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                ID
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                NAME
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                EMAIL
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                ROLE
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                STATUS
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-              >
-                ACTIONS
-              </th>
-            </tr>
-          </thead>
+          <TableHeader />
           <tbody className="bg-white divide-y divide-gray-200">
             {currentUsers.length === 0 ? (
               <tr>
@@ -181,6 +142,7 @@ export default function UsersTable() {
         itemsPerPage={usersPerPage}
         setCurrentPage={setCurrentPage}
       />
+      <PendingAuthorsTable pendingAuthors={pendingAuthors} className="mt-8" setError={setError} setMessage={setMessage} setUsers={setUsers} users={users}/>
     </div>
   );
 }
@@ -239,5 +201,152 @@ function Row({
         </div>
       </td>
     </tr>
+  );
+}
+
+
+function TableHeader({ className }) {
+ return (
+   <thead className={"bg-white " + className}>
+     <tr>
+       <th
+         scope="col"
+         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+       >
+         ID
+       </th>
+       <th
+         scope="col"
+         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+       >
+         NAME
+       </th>
+       <th
+         scope="col"
+         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+       >
+         EMAIL
+       </th>
+       <th
+         scope="col"
+         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+       >
+         ROLE
+       </th>
+       <th
+         scope="col"
+         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+       >
+         STATUS
+       </th>
+       <th
+         scope="col"
+         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+       >
+         ACTIONS
+       </th>
+     </tr>
+   </thead>
+ ); 
+}
+
+function PendingAuthorsTable({className, pendingAuthors, setError, setMessage, setUsers, users}) {
+  function handleAccept(e) {
+    const id = e.target.closest("tr").id;
+    apiFetch(`admin/approve-author/${id}`, "PATCH", null, setError)
+      .then((data) => {
+        setMessage(data.message);
+        setError(null);
+        const updatedUsers = users.map((user) =>
+          user.id === Number(id)
+            ? { ...user, author_request: "accepted" }
+            : user
+        );
+        setUsers(updatedUsers);
+        localStorage.setItem("users", JSON.stringify(updatedUsers));
+      })
+      .catch((err) => {
+        console.error(err.message);
+        setError(err.message);
+        setMessage(null);
+      });
+  }
+  function handleReject(e) {
+    const id = e.target.closest("tr").id;
+    apiFetch(`admin/reject-author/${id}`, "PATCH", null, setError)
+      .then((data) => {
+        setMessage(data.message);
+        setError(null);
+        const updatedUsers = users.map((user) =>
+          user.id === Number(id)
+            ? { ...user, author_request: "rejected" }
+            : user
+        );
+        setUsers(updatedUsers);
+        localStorage.setItem("users", JSON.stringify(updatedUsers));
+      })
+      .catch((err) => {
+        console.error(err.message);
+        setError(err.message);
+        setMessage(null);
+      });
+  }
+  return (
+    <table className={"min-w-full divide-y divide-gray-300 border border-gray-300 rounded-lg shadow-lg " + className}>
+      <TableHeader />
+      <tbody className="bg-white divide-y divide-gray-200">
+        {pendingAuthors.length === 0 ? (
+          <tr>
+            <td colSpan="7" className="text-center py-4">
+              No requests found
+            </td>
+          </tr>
+        ) : (
+          pendingAuthors.map((user) => (
+            <tr className={className} id={user?.id} key={user?.id}>
+              <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-sm text-gray-500">
+                {user?.id}
+              </td>
+              <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                {user?.name}
+              </td>
+              <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-sm text-gray-500">
+                {user?.email}
+              </td>
+              <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-sm text-gray-500">
+                {user?.type}
+              </td>
+              <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap">
+                <span
+                  className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                    user?.status === "suspended"
+                      ? "bg-red-100 text-red-500"
+                      : "bg-[#c5ffe2] text-[#34c759]"
+                  }`}
+                >
+                  {user?.status}
+                </span>
+              </td>
+              <td className="px-4 py-2 md:px-6 md:py-4 whitespace-nowrap text-sm font-medium">
+                <div className="flex space-x-2">
+                  <button
+                    onClick={handleAccept}
+                    className="bg-green-500 text-white px-4 py-2 rounded"
+                  >
+                    accept
+                  </button>
+                  <button
+                    onClick={handleReject}
+                    className="bg-red-500 text-white px-4 py-2 rounded"
+                  >
+                    reject
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))
+        )}
+      </tbody>
+    </table>
   );
 }
