@@ -13,7 +13,7 @@ export default function Eye({ className, onClick }) {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className={className + "cursor-pointer w-5 h-5 stroke-blue-400 hover:stroke-blue-600"}
+      className={className + " cursor-pointer w-5 h-5 stroke-blue-400 hover:stroke-blue-600"}
     >
       <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
       <circle cx="12" cy="12" r="3"></circle>
