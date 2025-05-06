@@ -14,8 +14,6 @@ export default function Stats() {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
   const categories = stats?.categories;
-  console.error(categories);
-  
   const topAuthors = stats?.top_three_authors;
   const topBlogs = stats?.top_three_blogs;
 
@@ -131,7 +129,7 @@ export default function Stats() {
             </div>
             <div class="grid grid-cols-3 gap-4">
               {categories?.map((category) => (
-                <div class="flex items-center">
+                <div class="flex items-center" key={category.id}>
                   <div
                     class="w-7 h-7 mr-1.5 rounded-full"
                     style={{ backgroundColor: category.color }}
@@ -151,7 +149,7 @@ export default function Stats() {
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {topAuthors?.map((author) => (
                   <AuthorCard
-                    className="!p-2 [&>img]:w-20 [&>img]:h-20 min-w-[80px]"
+                    className="!p-2 [&_img]:w-20 [&_img]:h-20 min-w-[80px]"
                     key={author.id}
                     image={author.image}
                     name={author.name}
