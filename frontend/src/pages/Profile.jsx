@@ -17,7 +17,9 @@ export default function Profile({ className }) {
   const [message, setMessage] = useState(null);
   const navigate = useNavigate();
   const userId = JSON.parse(localStorage.getItem("user"))?.id;
-  
+  const role = localStorage.getItem("user-role");
+  const authorRequest = JSON.parse(localStorage.getItem("user"))?.author_request;
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     setName(user?.name || '');
@@ -26,6 +28,21 @@ export default function Profile({ className }) {
     setImage(user?.image || "/images/avatar.png");
   }, []);
 
+
+  function handleAuthorMode(e) {
+    e.preventDefault();
+    apiFetch(
+      `users/${userId}`,
+      "PUT",
+      {  "author_request": "pending" },
+      setError
+    )
+      .then((data) => {
+        setMessage(data.message);
+        localStorage.setItem("user", JSON.stringify(data.user));
+      })
+      .catch((err) => console.error(err));
+  }
   function handleSubmit(e) {
     e.preventDefault();
     apiFetch(
@@ -152,12 +169,15 @@ export default function Profile({ className }) {
 
         {/* <!-- Buttons --> */}
         <div className="flex justify-between pt-4">
-          <Button
+          { role === 'regular' && !authorRequest &&
+            <Button
             type="Button"
             className=" bg-primary text-white hover:bg-secondary"
-          >
+            onClick={handleAuthorMode}
+            >
             Activer Mode Auteur
           </Button>
+          }
           <Button
             type="submit"
             className="bg-primary text-white hover:bg-secondary"
