@@ -20,6 +20,7 @@ export default function Login() {
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
         localStorage.setItem('blogs', JSON.stringify(data.blogs));
+        localStorage.setItem('my_blogs', JSON.stringify(data.my_blogs));
         localStorage.setItem('user-role', data.user.type);
         localStorage.setItem('user-id', data.user.id);
         localStorage.setItem('categories', JSON.stringify(data.categories));
