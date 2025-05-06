@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import BlogCard from "../components/UI/Cards/BlogCard";
 import apiFetch from "../api/api";
 import Pagination from "../components/UI/Pagination";
 
 export default function Blogs() {
-  const [searchQuery, setSearchQuery] = useState("");
+  const {query} = useParams();
+  const [searchQuery, setSearchQuery] = useState(query || "");
   const [blogs, setBlogs] = useState([]);
   const [error, setError] = useState(null);
 // pagination
