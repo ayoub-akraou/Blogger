@@ -11,7 +11,8 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export default function UpdateBlogsEditor() {
   const { id } = useParams();
-  const blogs = JSON.parse(localStorage.getItem("my_blogs") || "[]");
+  const [myBlogs, setMyBlogs] = useState(JSON.parse(localStorage.getItem("my_blogs") || "[]"));
+  const [blogs, setBlogs] = useState(JSON.parse(localStorage.getItem("blogs") || "[]"));
   const blog = blogs.find((blog) => blog.id === parseInt(id));
   const editorRef = useRef();
   const [mode, setMode] = useState("wysiwyg");
@@ -83,11 +84,13 @@ export default function UpdateBlogsEditor() {
            setMessage(data.message);
            setError(null);
            console.log(blog);
+           const updatedMyBlogs = myBlogs.map((blog) => (blog.id != id ? blog : { ...blog, ...data.blog }));
+           setMyBlogs(updatedMyBlogs);
+           localStorage.setItem("my_blogs", JSON.stringify(updatedMyBlogs));
            
-           localStorage.setItem(
-             "my_blogs",
-             JSON.stringify(blogs.map((blog) => blog.id != id ? blog : data.blog))
-           );
+           const updatedBlogs = blogs.map((blog) => blog.id != id ? blog : data.blog);
+           setBlogs(updatedBlogs);
+           localStorage.setItem("blogs", JSON.stringify(updatedBlogs));
            navigate(`/blog-detail/${data.blog.id}`);
          })
          .catch((err) => {
@@ -107,12 +110,13 @@ export default function UpdateBlogsEditor() {
 
          setMessage(data.message);
          setError(null);
-          localStorage.setItem(
-            "my_blogs",
-            JSON.stringify(
-              blogs.map((blog) => (blog.id != id ? blog : data.blog))
-            )
-          );
+          const updatedMyBlogs = myBlogs.map((blog) => (blog.id != id ? blog : { ...blog, ...data.blog }));
+          setMyBlogs(updatedMyBlogs);
+          localStorage.setItem("my_blogs", JSON.stringify(updatedMyBlogs));
+          
+          const updatedBlogs = blogs.map((blog) => blog.id != id ? blog : data.blog);
+          setBlogs(updatedBlogs);
+          localStorage.setItem("blogs", JSON.stringify(updatedBlogs));
          navigate(`/blog-detail/${data.blog.id}`);
        })
        .catch((err) => {
