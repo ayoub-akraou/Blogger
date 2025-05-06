@@ -11,13 +11,13 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export default function UpdateBlogsEditor() {
   const { id } = useParams();
-  const blogs = JSON.parse(localStorage.getItem("blogs") || "[]");
+  const blogs = JSON.parse(localStorage.getItem("my_blogs") || "[]");
   const blog = blogs.find((blog) => blog.id === parseInt(id));
   const editorRef = useRef();
-  const [mode, setMode] = useState("markdown");
-  const [content, setContent] = useState(blog.content);
-  const [title, setTitle] = useState(blog.title);
-  const [category_id, setCategory_id] = useState(blog.category_id);
+  const [mode, setMode] = useState("wysiwyg");
+  const [content, setContent] = useState(blog?.content);
+  const [title, setTitle] = useState(blog?.title);
+  const [category_id, setCategory_id] = useState(blog?.category_id);
   const [image, setImage] = useState(null);
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
@@ -82,9 +82,11 @@ export default function UpdateBlogsEditor() {
          .then((data) => {
            setMessage(data.message);
            setError(null);
+           console.log(blog);
+           
            localStorage.setItem(
-             "blogs",
-             JSON.stringify([...blogs.filter((blog) => blog.id != id), data.blog])
+             "my_blogs",
+             JSON.stringify(blogs.map((blog) => blog.id != id ? blog : data.blog))
            );
            navigate(`/blog-detail/${data.blog.id}`);
          })
@@ -98,14 +100,19 @@ export default function UpdateBlogsEditor() {
      };
    } else {
      // Appel API directement si pas d'image
+     console.log(blog);
+     
      apiFetch(`blogs/${blog.id}`, "PUT", body, setError)
        .then((data) => {
+
          setMessage(data.message);
          setError(null);
-         localStorage.setItem(
-           "blogs",
-           JSON.stringify([...blogs.filter((blog) => blog.id != id), data.blog])
-         );
+          localStorage.setItem(
+            "my_blogs",
+            JSON.stringify(
+              blogs.map((blog) => (blog.id != id ? blog : data.blog))
+            )
+          );
          navigate(`/blog-detail/${data.blog.id}`);
        })
        .catch((err) => {
